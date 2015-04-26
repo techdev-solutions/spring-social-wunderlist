@@ -1,7 +1,5 @@
 package org.springframework.social.wunderlist.api;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.Date;
 
 /**
@@ -13,8 +11,6 @@ public class User {
     private String name;
     private String email;
     private Long revision;
-
-    @JsonProperty("created_at")
     private Date createdAt;
 
     public Long getId() {
