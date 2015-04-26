@@ -17,6 +17,7 @@ package org.springframework.social.wunderlist.api.impl;
 
 import org.springframework.social.wunderlist.api.ListOperations;
 import org.springframework.social.wunderlist.api.WunderlistList;
+import org.springframework.social.wunderlist.api.WunderlistTasksCount;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -34,9 +35,9 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
     }
 
     @Override
-    public WunderlistList getList(long id) {
+    public WunderlistList getList(long listId) {
         requireAuthorization();
-        return restTemplate.getForObject(buildUri("lists/" + id), WunderlistList.class);
+        return restTemplate.getForObject(buildUri("lists/" + listId), WunderlistList.class);
     }
 
     @Override
@@ -44,5 +45,12 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
         requireAuthorization();
         return restTemplate.getForObject(buildUri("lists"), WunderlistListList.class);
     }
+
+    @Override
+    public WunderlistTasksCount getTasksCount(long listId) {
+        requireAuthorization();
+        return restTemplate.getForObject(buildUri("lists/tasks_count", "list_id", String.valueOf(listId)), WunderlistTasksCount.class);
+    }
+
 
 }

@@ -17,6 +17,7 @@ package org.springframework.social.wunderlist.api.impl;
 
 import org.junit.Test;
 import org.springframework.social.wunderlist.api.WunderlistList;
+import org.springframework.social.wunderlist.api.WunderlistTasksCount;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -61,6 +62,22 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
 
         List<WunderlistList> lists = wunderlist.listOperations().getLists();
         assertEquals(2, lists.size());
+    }
+
+    @Test
+    public void shouldFetchTaskCountForList() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/lists/tasks_count?list_id=666"))
+            .andExpect(method(GET))
+            .andRespond(withSuccess(jsonResource("tasks-count"), APPLICATION_JSON));
+
+        WunderlistTasksCount count = wunderlist.listOperations().getTasksCount(666);
+        assertNotNull(count);
+
+        assertEquals(Long.valueOf(83526310), count.getId());
+        assertEquals(Long.valueOf(100), count.getCompletedCount());
+        assertEquals(Long.valueOf(200), count.getUncompletedCount());
+        assertEquals("tasks_count", count.getType());
     }
 
 }

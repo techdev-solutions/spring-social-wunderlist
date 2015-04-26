@@ -13,35 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.api;
+package org.springframework.social.wunderlist.api.impl.json;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Alexander Hanschke
  */
-public interface ListOperations {
+class WunderlistTasksCountMixin {
 
-    /**
-     * Get a specific list
-     *
-     * @param listId the id of the list to retrieve
-     * @return the list for the given id
-     */
-    WunderlistList getList(long listId);
+    @JsonProperty("completed_count")
+    Long completedCount;
 
-    /**
-     * Get all Lists a user has permission to
-     *
-     * @return all the lists accessible
-     */
-    List<WunderlistList> getLists();
+    @JsonProperty("uncompleted_count")
+    Long uncompletedCount;
 
-    /**
-     * Get a list's tasks count
-     *
-     * @param listId the id of the list to query
-     * @return the tasks count
-     */
-    WunderlistTasksCount getTasksCount(long listId);
 }

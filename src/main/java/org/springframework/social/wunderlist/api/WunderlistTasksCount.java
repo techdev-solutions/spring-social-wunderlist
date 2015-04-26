@@ -15,33 +15,30 @@
  */
 package org.springframework.social.wunderlist.api;
 
-import java.util.List;
-
 /**
  * @author Alexander Hanschke
  */
-public interface ListOperations {
+public class WunderlistTasksCount {
 
-    /**
-     * Get a specific list
-     *
-     * @param listId the id of the list to retrieve
-     * @return the list for the given id
-     */
-    WunderlistList getList(long listId);
+    private Long id;
+    private Long completedCount;
+    private Long uncompletedCount;
+    private String type;
 
-    /**
-     * Get all Lists a user has permission to
-     *
-     * @return all the lists accessible
-     */
-    List<WunderlistList> getLists();
+    public Long getId() {
+        return id;
+    }
 
-    /**
-     * Get a list's tasks count
-     *
-     * @param listId the id of the list to query
-     * @return the tasks count
-     */
-    WunderlistTasksCount getTasksCount(long listId);
+    public Long getCompletedCount() {
+        return completedCount;
+    }
+
+    public Long getUncompletedCount() {
+        return uncompletedCount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
 }
