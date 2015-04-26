@@ -1,0 +1,16 @@
+[
+  {
+    "id": 6234958,
+    "name": "john",
+    "email": "john@example.com",
+    "created_at": "2013-08-30T08:25:58.000Z",
+    "revision": 1
+  },
+  {
+    "id": 1234567,
+    "name": "jane",
+    "email": "jane@example.com",
+    "created_at": "2013-08-30T08:25:58.000Z",
+    "revision": 1
+  }
+]

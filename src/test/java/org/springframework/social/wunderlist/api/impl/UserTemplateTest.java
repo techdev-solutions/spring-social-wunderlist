@@ -48,9 +48,24 @@ public class UserTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/users"))
             .andExpect(method(GET))
-            .andRespond(withSuccess(jsonResource("users"), APPLICATION_JSON));
+            .andRespond(withSuccess(jsonResource("users-all"), APPLICATION_JSON));
 
         List<User> users = wunderlist.userOperations().getAccessibleUsers();
+        assertEquals(2, users.size());
+    }
+
+    @Test
+    public void shouldFetchAccessibleUsersForList() throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(APPLICATION_JSON);
+
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/users?list_id=666"))
+            .andExpect(method(GET))
+            .andRespond(withSuccess(jsonResource("users-filtered"), APPLICATION_JSON));
+
+        List<User> users = wunderlist.userOperations().getAccessibleUsersForList(666);
         assertEquals(1, users.size());
     }
+
 }
