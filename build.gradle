@@ -1,0 +1,28 @@
+description = 'Spring Social Wunderlist'
+
+group = "org.springframework.social"
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: "java"
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+dependencies{
+    compile ("org.springframework.social:spring-social-core:$springSocialVersion")
+    compile ("org.springframework:spring-web:$springVersion")
+    compile ("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
+    compile ("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    compile ("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
+
+    testCompile ("junit:junit:$junitVersion")
+    testCompile ("org.springframework:spring-test:$springVersion")
+    testCompile ("org.springframework.social:spring-social-test:$springSocialTestVersion")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
