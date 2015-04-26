@@ -13,24 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.api.impl.json;
+package org.springframework.social.wunderlist.api.impl;
 
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.springframework.social.wunderlist.api.ListOperations;
 import org.springframework.social.wunderlist.api.WunderlistList;
-import org.springframework.social.wunderlist.api.WunderlistUser;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Alexander Hanschke
  */
-public class WunderlistModule extends SimpleModule {
+class ListTemplate extends AbstractWunderlistOperations implements ListOperations {
 
-    public WunderlistModule() {
-        super("WunderlistModule");
+    private final RestTemplate restTemplate;
+
+    public ListTemplate(RestTemplate restTemplate, boolean authorized) {
+        super(authorized);
+        this.restTemplate = restTemplate;
     }
 
     @Override
-    public void setupModule(SetupContext context) {
-        context.setMixInAnnotations(WunderlistUser.class, WunderlistUserMixin.class);
-        context.setMixInAnnotations(WunderlistList.class, WunderlistListMixin.class);
+    public WunderlistList getList(long id) {
+        requireAuthorization();
+        return restTemplate.getForObject(buildUri("lists/" + id), WunderlistList.class);
     }
 }

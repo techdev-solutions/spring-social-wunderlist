@@ -16,7 +16,6 @@
 package org.springframework.social.wunderlist.api.impl;
 
 import org.junit.Test;
-import org.springframework.http.HttpHeaders;
 import org.springframework.social.wunderlist.api.WunderlistUser;
 
 import java.text.SimpleDateFormat;
@@ -37,10 +36,8 @@ public class UserTemplateTest extends AbstractWunderlistApiTest {
 
     @Test
     public void shouldFetchUser() throws Exception {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(APPLICATION_JSON);
-
-        server.expect(requestTo("https://a.wunderlist.com/api/v1/user"))
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/user"))
             .andExpect(method(GET))
             .andRespond(withSuccess(jsonResource("user"), APPLICATION_JSON));
 
@@ -56,9 +53,6 @@ public class UserTemplateTest extends AbstractWunderlistApiTest {
 
     @Test
     public void shouldFetchAccessibleUsers() throws Exception {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(APPLICATION_JSON);
-
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/users"))
             .andExpect(method(GET))
@@ -70,9 +64,6 @@ public class UserTemplateTest extends AbstractWunderlistApiTest {
 
     @Test
     public void shouldFetchAccessibleUsersForList() throws Exception {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(APPLICATION_JSON);
-
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/users?list_id=666"))
             .andExpect(method(GET))

@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
+import org.springframework.social.wunderlist.api.ListOperations;
 import org.springframework.social.wunderlist.api.UserOperations;
 import org.springframework.social.wunderlist.api.Wunderlist;
 import org.springframework.social.wunderlist.api.impl.json.WunderlistModule;
@@ -31,6 +32,8 @@ public class WunderlistTemplate extends AbstractOAuth2ApiBinding implements Wund
 
     private UserOperations userOperations;
 
+    private ListOperations listOperations;
+
     public WunderlistTemplate(String accessToken) {
         super(accessToken);
         initOperations();
@@ -38,6 +41,7 @@ public class WunderlistTemplate extends AbstractOAuth2ApiBinding implements Wund
 
     private void initOperations() {
         this.userOperations = new UserTemplate(getRestTemplate(), isAuthorized());
+        this.listOperations = new ListTemplate(getRestTemplate(), isAuthorized());
     }
 
     @Override
@@ -54,6 +58,11 @@ public class WunderlistTemplate extends AbstractOAuth2ApiBinding implements Wund
     @Override
     public UserOperations userOperations() {
         return userOperations;
+    }
+
+    @Override
+    public ListOperations listOperations() {
+        return listOperations;
     }
 
     @Override

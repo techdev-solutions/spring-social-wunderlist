@@ -15,22 +15,18 @@
  */
 package org.springframework.social.wunderlist.api.impl.json;
 
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.springframework.social.wunderlist.api.WunderlistList;
-import org.springframework.social.wunderlist.api.WunderlistUser;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Date;
 
 /**
  * @author Alexander Hanschke
  */
-public class WunderlistModule extends SimpleModule {
+abstract class WunderlistListMixin {
 
-    public WunderlistModule() {
-        super("WunderlistModule");
-    }
+    @JsonProperty("created_at")
+    Date createdAt;
 
-    @Override
-    public void setupModule(SetupContext context) {
-        context.setMixInAnnotations(WunderlistUser.class, WunderlistUserMixin.class);
-        context.setMixInAnnotations(WunderlistList.class, WunderlistListMixin.class);
-    }
+    @JsonProperty("list_type")
+    String listType;
 }

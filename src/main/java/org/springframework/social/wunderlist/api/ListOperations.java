@@ -13,24 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.api.impl.json;
-
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.springframework.social.wunderlist.api.WunderlistList;
-import org.springframework.social.wunderlist.api.WunderlistUser;
+package org.springframework.social.wunderlist.api;
 
 /**
  * @author Alexander Hanschke
  */
-public class WunderlistModule extends SimpleModule {
+public interface ListOperations {
 
-    public WunderlistModule() {
-        super("WunderlistModule");
-    }
-
-    @Override
-    public void setupModule(SetupContext context) {
-        context.setMixInAnnotations(WunderlistUser.class, WunderlistUserMixin.class);
-        context.setMixInAnnotations(WunderlistList.class, WunderlistListMixin.class);
-    }
+    /**
+     * Retrieve a list by id
+     *
+     * @param id the id of the list to retrieve
+     * @return the list for the given id
+     */
+    WunderlistList getList(long id);
 }
