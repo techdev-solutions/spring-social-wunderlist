@@ -15,7 +15,7 @@
  */
 package org.springframework.social.wunderlist.api.impl;
 
-import org.springframework.social.wunderlist.api.User;
+import org.springframework.social.wunderlist.api.WunderlistUser;
 import org.springframework.social.wunderlist.api.UserOperations;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,20 +34,20 @@ class UserTemplate extends AbstractWunderlistOperations implements UserOperation
     }
 
     @Override
-    public User getUser() {
+    public WunderlistUser getUser() {
         requireAuthorization();
-        return restTemplate.getForObject(buildUri("user"), User.class);
+        return restTemplate.getForObject(buildUri("user"), WunderlistUser.class);
     }
 
     @Override
-    public List<User> getAccessibleUsers() {
+    public List<WunderlistUser> getAccessibleUsers() {
         requireAuthorization();
-        return restTemplate.getForObject(buildUri("users"), UserList.class);
+        return restTemplate.getForObject(buildUri("users"), WunderlistUserList.class);
     }
 
     @Override
-    public List<User> getAccessibleUsersForList(int list) {
+    public List<WunderlistUser> getAccessibleUsersForList(int list) {
         requireAuthorization();
-        return restTemplate.getForObject(buildUri("users", "list_id", String.valueOf(list)), UserList.class);
+        return restTemplate.getForObject(buildUri("users", "list_id", String.valueOf(list)), WunderlistUserList.class);
     }
 }

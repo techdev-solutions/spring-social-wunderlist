@@ -17,7 +17,7 @@ package org.springframework.social.wunderlist.api.impl;
 
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;
-import org.springframework.social.wunderlist.api.User;
+import org.springframework.social.wunderlist.api.WunderlistUser;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -44,7 +44,7 @@ public class UserTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(method(GET))
             .andRespond(withSuccess(jsonResource("user"), APPLICATION_JSON));
 
-        User user = wunderlist.userOperations().getUser();
+        WunderlistUser user = wunderlist.userOperations().getUser();
         assertNotNull(user);
 
         assertEquals("BENCHMARK", user.getName());
@@ -64,7 +64,7 @@ public class UserTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(method(GET))
             .andRespond(withSuccess(jsonResource("users-all"), APPLICATION_JSON));
 
-        List<User> users = wunderlist.userOperations().getAccessibleUsers();
+        List<WunderlistUser> users = wunderlist.userOperations().getAccessibleUsers();
         assertEquals(2, users.size());
     }
 
@@ -78,7 +78,7 @@ public class UserTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(method(GET))
             .andRespond(withSuccess(jsonResource("users-filtered"), APPLICATION_JSON));
 
-        List<User> users = wunderlist.userOperations().getAccessibleUsersForList(666);
+        List<WunderlistUser> users = wunderlist.userOperations().getAccessibleUsersForList(666);
         assertEquals(1, users.size());
     }
 

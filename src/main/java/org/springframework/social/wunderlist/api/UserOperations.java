@@ -27,7 +27,7 @@ public interface UserOperations {
      *
      * @return the currently authenticated user
      */
-    User getUser();
+    WunderlistUser getUser();
 
     /**
      * Retrieve all users the currently authenticated user can access,
@@ -35,7 +35,7 @@ public interface UserOperations {
      *
      * @return all accessible users
      */
-    List<User> getAccessibleUsers();
+    List<WunderlistUser> getAccessibleUsers();
 
     /**
      * Retrieve all users the currently authenticated user can access,
@@ -44,5 +44,5 @@ public interface UserOperations {
      * @param list the id of the list to retrieve the users for
      * @return all accessible users
      */
-    List<User> getAccessibleUsersForList(int list);
+    List<WunderlistUser> getAccessibleUsersForList(int list);
 }

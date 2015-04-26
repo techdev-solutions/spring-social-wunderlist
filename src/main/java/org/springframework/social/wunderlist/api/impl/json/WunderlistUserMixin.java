@@ -13,14 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.api.impl;
+package org.springframework.social.wunderlist.api.impl.json;
 
-import org.springframework.social.wunderlist.api.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author Alexander Hanschke
  */
-public class UserList extends ArrayList<User> {
+abstract class WunderlistUserMixin {
+
+    @JsonProperty("created_at")
+    Date createdAt;
+
 }

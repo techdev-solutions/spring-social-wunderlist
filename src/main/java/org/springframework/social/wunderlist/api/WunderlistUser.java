@@ -20,7 +20,7 @@ import java.util.Date;
 /**
  * @author Alexander Hanschke
  */
-public class User {
+public class WunderlistUser {
 
     private Long id;
     private String name;

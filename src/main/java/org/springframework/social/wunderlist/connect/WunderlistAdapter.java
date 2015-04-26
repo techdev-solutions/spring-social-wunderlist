@@ -19,7 +19,7 @@ import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.ConnectionValues;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.UserProfileBuilder;
-import org.springframework.social.wunderlist.api.User;
+import org.springframework.social.wunderlist.api.WunderlistUser;
 import org.springframework.social.wunderlist.api.Wunderlist;
 
 /**
@@ -39,14 +39,14 @@ public class WunderlistAdapter implements ApiAdapter<Wunderlist> {
 
     @Override
     public void setConnectionValues(Wunderlist api, ConnectionValues values) {
-        User user = api.userOperations().getUser();
+        WunderlistUser user = api.userOperations().getUser();
         values.setProviderUserId(String.valueOf(user.getId()));
         values.setDisplayName(user.getName());
     }
 
     @Override
     public UserProfile fetchUserProfile(Wunderlist api) {
-        User user = api.userOperations().getUser();
+        WunderlistUser user = api.userOperations().getUser();
         return
             new UserProfileBuilder()
                 .setName(user.getName())
