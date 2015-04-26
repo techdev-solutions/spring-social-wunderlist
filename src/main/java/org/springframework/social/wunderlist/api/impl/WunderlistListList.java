@@ -13,27 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.api;
+package org.springframework.social.wunderlist.api.impl;
 
-import java.util.List;
+import org.springframework.social.wunderlist.api.WunderlistList;
+
+import java.util.ArrayList;
 
 /**
  * @author Alexander Hanschke
  */
-public interface ListOperations {
-
-    /**
-     * Get a specific list
-     *
-     * @param id the id of the list to retrieve
-     * @return the list for the given id
-     */
-    WunderlistList getList(long id);
-
-    /**
-     * Get all Lists a user has permission to
-     *
-     * @return all the lists accessible
-     */
-    List<WunderlistList> getLists();
+public class WunderlistListList extends ArrayList<WunderlistList> {
 }

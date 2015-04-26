@@ -1,0 +1,18 @@
+[
+  {
+    "id": 83526310,
+    "created_at": "2013-08-30T08:29:46.203Z",
+    "title": "Read Later",
+    "list_type": "list",
+    "type": "list",
+    "revision": 10
+  },
+  {
+    "id": 12345678,
+    "created_at": "2013-08-30T08:29:46.203Z",
+    "title": "Read Now",
+    "list_type": "list",
+    "type": "list",
+    "revision": 1
+  }
+]

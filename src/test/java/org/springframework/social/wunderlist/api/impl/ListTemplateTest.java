@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.springframework.social.wunderlist.api.WunderlistList;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -49,6 +50,17 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         assertEquals("list", list.getType());
         assertEquals(Long.valueOf(10), list.getRevision());
         assertEquals(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2013-08-30 10:29:46"), list.getCreatedAt());
+    }
+
+    @Test
+    public void shouldFetchAllLists() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
+            .andExpect(method(GET))
+            .andRespond(withSuccess(jsonResource("lists-all"), APPLICATION_JSON));
+
+        List<WunderlistList> lists = wunderlist.listOperations().getLists();
+        assertEquals(2, lists.size());
     }
 
 }

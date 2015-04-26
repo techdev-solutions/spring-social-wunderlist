@@ -19,6 +19,8 @@ import org.springframework.social.wunderlist.api.ListOperations;
 import org.springframework.social.wunderlist.api.WunderlistList;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 /**
  * @author Alexander Hanschke
  */
@@ -36,4 +38,11 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
         requireAuthorization();
         return restTemplate.getForObject(buildUri("lists/" + id), WunderlistList.class);
     }
+
+    @Override
+    public List<WunderlistList> getLists() {
+        requireAuthorization();
+        return restTemplate.getForObject(buildUri("lists"), WunderlistListList.class);
+    }
+
 }
