@@ -20,12 +20,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * @author Alexander Hanschke
  */
-class WunderlistTasksCountMixin {
+abstract class WunderlistTasksCountMixin {
 
     @JsonProperty("completed_count")
-    Long completedCount;
+    abstract Long getCompletedCount();
 
     @JsonProperty("uncompleted_count")
-    Long uncompletedCount;
+    abstract Long getUncompletedCount();
 
 }

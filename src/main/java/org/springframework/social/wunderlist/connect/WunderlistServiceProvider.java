@@ -30,8 +30,7 @@ public class WunderlistServiceProvider extends AbstractOAuth2ServiceProvider<Wun
     }
 
     private static OAuth2Template createOAuth2Template(String clientId, String clientSecret) {
-        OAuth2Template template = new OAuth2Template(clientId, clientSecret, AUTHORIZE_URL, ACCESS_TOKEN_URL);
-        return template;
+        return new OAuth2Template(clientId, clientSecret, AUTHORIZE_URL, ACCESS_TOKEN_URL);
     }
 
     @Override

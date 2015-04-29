@@ -25,8 +25,8 @@ import java.util.Date;
 abstract class WunderlistListMixin {
 
     @JsonProperty("created_at")
-    Date createdAt;
+    abstract Date getCreatedAt();
 
     @JsonProperty("list_type")
-    String listType;
+    abstract String getListType();
 }
