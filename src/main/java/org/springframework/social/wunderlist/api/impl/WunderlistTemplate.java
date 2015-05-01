@@ -17,25 +17,37 @@ package org.springframework.social.wunderlist.api.impl;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.wunderlist.api.ListOperations;
 import org.springframework.social.wunderlist.api.UserOperations;
 import org.springframework.social.wunderlist.api.Wunderlist;
 import org.springframework.social.wunderlist.api.impl.json.WunderlistModule;
+import org.springframework.social.wunderlist.connect.support.WunderlistTokenRequestInterceptor;
 import org.springframework.web.client.RestOperations;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Alexander Hanschke
  */
 public class WunderlistTemplate extends AbstractOAuth2ApiBinding implements Wunderlist {
 
+    private final String clientId;
+    private final String accessToken;
+
     private UserOperations userOperations;
 
     private ListOperations listOperations;
 
-    public WunderlistTemplate(String accessToken) {
+    public WunderlistTemplate(String accessToken, String clientId) {
         super(accessToken);
+        this.clientId = clientId;
+        this.accessToken = accessToken;
+
+        reconfigureRestTemplate();
         initOperations();
     }
 
@@ -53,6 +65,13 @@ public class WunderlistTemplate extends AbstractOAuth2ApiBinding implements Wund
         converter.setObjectMapper(mapper);
 
         return converter;
+    }
+
+    private void reconfigureRestTemplate() {
+        List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>(1);
+        interceptors.add(new WunderlistTokenRequestInterceptor(clientId, accessToken));
+
+        getRestTemplate().setInterceptors(interceptors);
     }
 
     @Override

@@ -30,7 +30,7 @@ public abstract class AbstractWunderlistApiTest {
 
     @Before
     public void setup() {
-        this.wunderlist = new WunderlistTemplate("ACCESS_TOKEN");
+        this.wunderlist = new WunderlistTemplate("ACCESS_TOKEN", "CLIENT_ID");
         this.server = MockRestServiceServer.createServer(wunderlist.getRestTemplate());
     }
 

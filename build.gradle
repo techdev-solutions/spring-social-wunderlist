@@ -7,6 +7,8 @@ repositories {
 }
 
 apply plugin: "java"
+apply plugin: "jacoco"
+apply plugin: "maven"
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
@@ -21,6 +23,14 @@ dependencies{
     testCompile ("junit:junit:$junitVersion")
     testCompile ("org.springframework:spring-test:$springVersion")
     testCompile ("org.springframework.social:spring-social-test:$springSocialTestVersion")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/jacoco-html"
+    }
 }
 
 task wrapper(type: Wrapper) {

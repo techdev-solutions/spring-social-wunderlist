@@ -25,21 +25,20 @@ import org.springframework.social.wunderlist.api.impl.WunderlistTemplate;
  */
 public class WunderlistServiceProvider extends AbstractOAuth2ServiceProvider<Wunderlist> {
 
+    private final String clientId;
+
     public WunderlistServiceProvider(String clientId, String clientSecret) {
         super(createOAuth2Template(clientId, clientSecret));
+        this.clientId = clientId;
     }
 
     private static OAuth2Template createOAuth2Template(String clientId, String clientSecret) {
-        return new OAuth2Template(clientId, clientSecret, AUTHORIZE_URL, ACCESS_TOKEN_URL);
+        return new WunderlistOAuth2Template(clientId, clientSecret);
     }
 
     @Override
     public Wunderlist getApi(String accessToken) {
-        return new WunderlistTemplate(accessToken);
+        return new WunderlistTemplate(accessToken, clientId);
     }
-
-    private static final String AUTHORIZE_URL    = "https://www.wunderlist.com/oauth/authorize";
-
-    private static final String ACCESS_TOKEN_URL = "https://www.wunderlist.com/oauth/access_token";
 
 }
