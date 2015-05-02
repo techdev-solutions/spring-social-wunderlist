@@ -25,10 +25,9 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.*;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 /**
@@ -85,6 +84,20 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         assertEquals(Long.valueOf(100), count.getCompletedCount());
         assertEquals(Long.valueOf(200), count.getUncompletedCount());
         assertEquals("tasks_count", count.getType());
+    }
+
+    @Test
+    public void shouldCreateList() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
+            .andExpect(method(POST))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(content().string("{\"title\":\"a test list\"}"))
+            .andRespond(withSuccess(jsonResource("list-created"), APPLICATION_JSON));
+
+        WunderlistList list = wunderlist.listOperations().create("a test list");
+        assertNotNull(list);
     }
 
 }

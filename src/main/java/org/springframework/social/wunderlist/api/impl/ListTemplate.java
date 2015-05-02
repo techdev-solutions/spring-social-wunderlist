@@ -20,7 +20,9 @@ import org.springframework.social.wunderlist.api.WunderlistList;
 import org.springframework.social.wunderlist.api.WunderlistTasksCount;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Alexander Hanschke
@@ -50,6 +52,16 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
     public WunderlistTasksCount getTasksCount(long listId) {
         requireAuthorization();
         return restTemplate.getForObject(buildUri("lists/tasks_count", "list_id", String.valueOf(listId)), WunderlistTasksCount.class);
+    }
+
+    @Override
+    public WunderlistList create(String title) {
+        requireAuthorization();
+
+        Map<String, String> params = new HashMap<String, String>(1);
+        params.put("title", title);
+
+        return restTemplate.postForObject(buildUri("lists"), params, WunderlistList.class);
     }
 
 

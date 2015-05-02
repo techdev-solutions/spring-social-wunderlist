@@ -31,7 +31,7 @@ public interface ListOperations {
     WunderlistList getList(long listId);
 
     /**
-     * Get all Lists a user has permission to
+     * Get all lists a user has permission to
      *
      * @return all the lists accessible
      */
@@ -44,4 +44,12 @@ public interface ListOperations {
      * @return the tasks count
      */
     WunderlistTasksCount getTasksCount(long listId);
+
+    /**
+     * Create a list
+     *
+     * @param title the title for the new list
+     * @return the created list
+     */
+    WunderlistList create(String title);
 }
