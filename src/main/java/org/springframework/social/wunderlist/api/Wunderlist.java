@@ -38,8 +38,15 @@ public interface Wunderlist extends ApiBinding {
     ListOperations listOperations();
 
     /**
+     * Returns the portion of the Wunderlist API containing the task operations.
+     *
+     * @return the task operations
+     */
+    TaskOperations taskOperations();
+
+    /**
      * Returns the underlying {@link RestOperations} object allowing for consumption of Wunderlist endpoints that may not be otherwise covered by the API binding.
-     * The RestOperations object returned is configured to include an OAuth "Authorization" header on all requests.
+     * The RestOperations object returned is configured to include "X-Client-ID" and "X-Access-Token" headers on all requests.
      *
      * @return the REST operations
      */

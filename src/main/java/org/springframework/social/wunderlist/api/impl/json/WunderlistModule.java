@@ -17,6 +17,7 @@ package org.springframework.social.wunderlist.api.impl.json;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.social.wunderlist.api.WunderlistList;
+import org.springframework.social.wunderlist.api.WunderlistTask;
 import org.springframework.social.wunderlist.api.WunderlistTasksCount;
 import org.springframework.social.wunderlist.api.WunderlistUser;
 
@@ -33,6 +34,7 @@ public class WunderlistModule extends SimpleModule {
     public void setupModule(SetupContext context) {
         context.setMixInAnnotations(WunderlistUser.class, WunderlistUserMixin.class);
         context.setMixInAnnotations(WunderlistList.class, WunderlistListMixin.class);
+        context.setMixInAnnotations(WunderlistTask.class, WunderlistTaskMixin.class);
         context.setMixInAnnotations(WunderlistTasksCount.class, WunderlistTasksCountMixin.class);
     }
 }
