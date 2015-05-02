@@ -26,6 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
@@ -40,6 +41,8 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists/666"))
             .andExpect(method(GET))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
             .andRespond(withSuccess(jsonResource("list"), APPLICATION_JSON));
 
         WunderlistList list = wunderlist.listOperations().getList(666);
@@ -58,6 +61,8 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
             .andExpect(method(GET))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
             .andRespond(withSuccess(jsonResource("lists-all"), APPLICATION_JSON));
 
         List<WunderlistList> lists = wunderlist.listOperations().getLists();
@@ -69,6 +74,8 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists/tasks_count?list_id=666"))
             .andExpect(method(GET))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
             .andRespond(withSuccess(jsonResource("tasks-count"), APPLICATION_JSON));
 
         WunderlistTasksCount count = wunderlist.listOperations().getTasksCount(666);

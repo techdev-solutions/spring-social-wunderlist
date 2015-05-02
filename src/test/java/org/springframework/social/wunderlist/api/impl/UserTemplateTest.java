@@ -25,6 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
@@ -39,6 +40,8 @@ public class UserTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/user"))
             .andExpect(method(GET))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
             .andRespond(withSuccess(jsonResource("user"), APPLICATION_JSON));
 
         WunderlistUser user = wunderlist.userOperations().getUser();
@@ -56,6 +59,8 @@ public class UserTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/users"))
             .andExpect(method(GET))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
             .andRespond(withSuccess(jsonResource("users-all"), APPLICATION_JSON));
 
         List<WunderlistUser> users = wunderlist.userOperations().getAccessibleUsers();
@@ -67,6 +72,8 @@ public class UserTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/users?list_id=666"))
             .andExpect(method(GET))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
             .andRespond(withSuccess(jsonResource("users-filtered"), APPLICATION_JSON));
 
         List<WunderlistUser> users = wunderlist.userOperations().getAccessibleUsersForList(666);
