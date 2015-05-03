@@ -18,7 +18,11 @@ package org.springframework.social.wunderlist.api.impl;
 import org.junit.Before;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.test.web.client.response.DefaultResponseCreator;
+import org.springframework.test.web.client.response.MockRestResponseCreators;
 
 /**
  * @author Alexander Hanschke
@@ -36,6 +40,10 @@ public abstract class AbstractWunderlistApiTest {
 
     protected Resource jsonResource(String filename) {
         return new ClassPathResource(filename + ".json", getClass());
+    }
+
+    protected static DefaultResponseCreator with(HttpStatus status, Resource body, MediaType contentType) {
+        return MockRestResponseCreators.withStatus(status).body(body).contentType(contentType);
     }
 
 }

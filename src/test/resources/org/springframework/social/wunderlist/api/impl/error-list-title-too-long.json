@@ -1,0 +1,11 @@
+{
+  "error":
+  {
+    "type": "validation_error",
+    "translation_key": "api_error_validation_error",
+    "message": "The information you sent could not be processed (validation failure).",
+    "title": [
+      "is too long (maximum is 255 characters)"
+    ]
+  }
+}

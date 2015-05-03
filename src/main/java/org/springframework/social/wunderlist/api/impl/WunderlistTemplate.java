@@ -27,6 +27,7 @@ import org.springframework.social.wunderlist.api.Wunderlist;
 import org.springframework.social.wunderlist.api.impl.json.WunderlistModule;
 import org.springframework.social.wunderlist.connect.support.WunderlistTokenRequestInterceptor;
 import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +65,11 @@ public class WunderlistTemplate extends AbstractOAuth2ApiBinding implements Wund
         converter.setObjectMapper(mapper);
 
         return converter;
+    }
+
+    @Override
+    protected void configureRestTemplate(RestTemplate restTemplate) {
+        restTemplate.setErrorHandler(new WunderlistErrorHandler());
     }
 
     private void registerInterceptors(String clientId, String accessToken) {

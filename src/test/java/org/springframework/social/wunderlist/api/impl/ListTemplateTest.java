@@ -16,6 +16,8 @@
 package org.springframework.social.wunderlist.api.impl;
 
 import org.junit.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.social.wunderlist.api.InvalidTitleException;
 import org.springframework.social.wunderlist.api.WunderlistList;
 import org.springframework.social.wunderlist.api.WunderlistTasksCount;
 
@@ -98,6 +100,34 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
 
         WunderlistList list = wunderlist.listOperations().create("a test list");
         assertNotNull(list);
+    }
+
+    @Test(expected = InvalidTitleException.class)
+    public void shouldNotCreateListWithEmptyTitle() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
+            .andExpect(method(POST))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(content().string("{\"title\":\"\"}"))
+            .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-empty"), APPLICATION_JSON));
+
+        wunderlist.listOperations().create("");
+    }
+
+    @Test(expected = InvalidTitleException.class)
+    public void shouldNotCreateListWithOverlongTitle() {
+        String title = new String(new char[256]).replace('\0', 'x');
+
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
+            .andExpect(method(POST))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(content().string("{\"title\":\"" + title + "\"}"))
+            .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-too-long"), APPLICATION_JSON));
+
+        wunderlist.listOperations().create(title);
     }
 
 }
