@@ -95,8 +95,9 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(method(POST))
             .andExpect(header("X-Client-ID", "CLIENT_ID"))
             .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(content().string("{\"title\":\"a test list\"}"))
-            .andRespond(withSuccess(jsonResource("list-created"), APPLICATION_JSON));
+            .andRespond(with(HttpStatus.CREATED, jsonResource("list-created"), APPLICATION_JSON));
 
         WunderlistList list = wunderlist.listOperations().create("a test list");
         assertNotNull(list);
@@ -109,6 +110,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(method(POST))
             .andExpect(header("X-Client-ID", "CLIENT_ID"))
             .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(content().string("{\"title\":\"\"}"))
             .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-empty"), APPLICATION_JSON));
 
@@ -124,6 +126,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(method(POST))
             .andExpect(header("X-Client-ID", "CLIENT_ID"))
             .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(content().string("{\"title\":\"" + title + "\"}"))
             .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-too-long"), APPLICATION_JSON));
 
