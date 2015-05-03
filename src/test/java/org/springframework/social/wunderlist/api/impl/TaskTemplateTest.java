@@ -69,5 +69,31 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
         assertEquals(2, tasks.size());
     }
 
+    @Test
+    public void shouldFetchCompletedTasksForList() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/tasks?list_id=666&completed=true"))
+            .andExpect(method(GET))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andRespond(withSuccess(jsonResource("tasks-all"), APPLICATION_JSON));
+
+        List<WunderlistTask> tasks = wunderlist.taskOperations().getCompletedTasks(666, true);
+        assertEquals(2, tasks.size());
+    }
+
+    @Test
+    public void shouldFetchUncompletedTasksForList() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/tasks?list_id=666&completed=false"))
+            .andExpect(method(GET))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andRespond(withSuccess(jsonResource("tasks-all"), APPLICATION_JSON));
+
+        List<WunderlistTask> tasks = wunderlist.taskOperations().getCompletedTasks(666, false);
+        assertEquals(2, tasks.size());
+    }
+
 
 }

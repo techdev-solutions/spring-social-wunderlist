@@ -17,6 +17,8 @@ package org.springframework.social.wunderlist.api.impl;
 
 import org.springframework.social.wunderlist.api.TaskOperations;
 import org.springframework.social.wunderlist.api.WunderlistTask;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -43,5 +45,15 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     public List<WunderlistTask> getTasks(long listId) {
         requireAuthorization();
         return restTemplate.getForObject(buildUri("tasks", "list_id", String.valueOf(listId)), WunderlistTaskList.class);
+    }
+
+    @Override
+    public List<WunderlistTask> getCompletedTasks(long listId, boolean completed) {
+        requireAuthorization();
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.set("list_id", String.valueOf(listId));
+        params.set("completed", String.valueOf(completed));
+
+        return restTemplate.getForObject(buildUri("tasks", params), WunderlistTaskList.class);
     }
 }

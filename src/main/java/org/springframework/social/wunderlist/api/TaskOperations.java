@@ -38,4 +38,13 @@ public interface TaskOperations {
      */
     List<WunderlistTask> getTasks(long listId);
 
+    /**
+     * Get completed tasks for a list
+     *
+     * @param listId the id of the list for which the tasks shall be fetched
+     * @param completed whether to fetch completed tasks or uncompleted ones
+     * @return all the tasks matching the given criteria
+     */
+    List<WunderlistTask> getCompletedTasks(long listId, boolean completed);
+
 }
