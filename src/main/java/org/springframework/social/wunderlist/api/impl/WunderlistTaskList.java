@@ -13,29 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.api;
+package org.springframework.social.wunderlist.api.impl;
 
-import java.util.List;
+import org.springframework.social.wunderlist.api.WunderlistTask;
+
+import java.util.ArrayList;
 
 /**
  * @author Alexander Hanschke
  */
-public interface TaskOperations {
-
-    /**
-     * Get a specific task
-     *
-     * @param taskId the id of the task to retrieve
-     * @return the task for the given id
-     */
-    WunderlistTask getTask(long taskId);
-
-    /**
-     * Get tasks for a list
-     *
-     * @param listId the id of the list for which the tasks shall be fetched
-     * @return all the tasks belonging the corresponding list
-     */
-    List<WunderlistTask> getTasks(long listId);
-
+public class WunderlistTaskList extends ArrayList<WunderlistTask> {
 }

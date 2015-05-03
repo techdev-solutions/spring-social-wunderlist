@@ -19,6 +19,8 @@ import org.springframework.social.wunderlist.api.TaskOperations;
 import org.springframework.social.wunderlist.api.WunderlistTask;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 /**
  * @author Alexander Hanschke
  */
@@ -35,5 +37,11 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     public WunderlistTask getTask(long taskId) {
         requireAuthorization();
         return restTemplate.getForObject(buildUri("tasks/" + taskId), WunderlistTask.class);
+    }
+
+    @Override
+    public List<WunderlistTask> getTasks(long listId) {
+        requireAuthorization();
+        return restTemplate.getForObject(buildUri("tasks", "list_id", String.valueOf(listId)), WunderlistTaskList.class);
     }
 }

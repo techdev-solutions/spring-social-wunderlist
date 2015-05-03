@@ -19,10 +19,9 @@ import org.junit.Test;
 import org.springframework.social.wunderlist.api.WunderlistTask;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.*;
@@ -55,6 +54,19 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
         assertEquals(Long.valueOf(6234958), task.getCreatedById());
         assertEquals(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2013-08-30 02:00:00"), task.getDueDate());
         assertEquals(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2013-08-30 10:36:13"), task.getCreatedAt());
+    }
+
+    @Test
+    public void shouldFetchTasksForList() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/tasks?list_id=666"))
+            .andExpect(method(GET))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andRespond(withSuccess(jsonResource("tasks-all"), APPLICATION_JSON));
+
+        List<WunderlistTask> tasks = wunderlist.taskOperations().getTasks(666);
+        assertEquals(2, tasks.size());
     }
 
 
