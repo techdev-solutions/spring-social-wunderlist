@@ -18,9 +18,9 @@ package org.springframework.social.wunderlist.api;
 /**
  * @author Alexander Hanschke
  */
-public class AuthenticationMissingException extends WunderlistApiException {
+public class ConflictException extends WunderlistApiException {
 
-    public AuthenticationMissingException(String message) {
+    public ConflictException(String message) {
         super(message);
     }
 }

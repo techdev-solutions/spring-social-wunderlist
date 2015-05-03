@@ -22,10 +22,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.social.InternalServerErrorException;
 import org.springframework.social.MissingAuthorizationException;
+import org.springframework.social.ResourceNotFoundException;
 import org.springframework.social.UncategorizedApiException;
-import org.springframework.social.wunderlist.api.AuthenticationMissingException;
-import org.springframework.social.wunderlist.api.NotEnoughPermissionsException;
-import org.springframework.social.wunderlist.api.ValidationException;
+import org.springframework.social.wunderlist.api.*;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import java.io.IOException;
@@ -40,8 +39,8 @@ class WunderlistErrorHandler extends DefaultResponseErrorHandler {
         HttpStatus status = response.getStatusCode();
 
         /*
-         * UNAUTHORIZED response cannot be mapped as WunderlistError and are therefore
-         * handled before deserializing the error
+         * UNAUTHORIZED responses cannot be mapped to WunderlistError and are therefore
+         * handled first
          */
         if (status == HttpStatus.UNAUTHORIZED) {
             throw new MissingAuthorizationException("wunderlist");
@@ -58,9 +57,16 @@ class WunderlistErrorHandler extends DefaultResponseErrorHandler {
                 break;
             }
 
+            case BAD_REQUEST: {
+                if (error.isParameterMissing()) {
+                    throw new MissingParameterException(error.getAdditionalParameters().toString());
+                }
+                break;
+            }
+
             case FORBIDDEN: {
                 if (error.getAdditionalParameters().containsKey("authentication")) {
-                    throw new AuthenticationMissingException("Authentication is missing (are 'X-Client-ID' and 'X-Access-Token' set?)");
+                    throw new MissingAuthenticationException("Authentication is missing (are 'X-Client-ID' and 'X-Access-Token' set?)");
                 }
                 break;
             }
@@ -69,7 +75,11 @@ class WunderlistErrorHandler extends DefaultResponseErrorHandler {
                 if (error.isPermissionError()) {
                     throw new NotEnoughPermissionsException(error.getMessage());
                 }
-                break;
+                throw new ResourceNotFoundException("wunderlist", error.getMessage());
+            }
+
+            case CONFLICT: {
+                throw new ConflictException("There is a conflict (is the revision up to date?) - " + error.getAdditionalParameters().toString());
             }
 
             case INTERNAL_SERVER_ERROR: {

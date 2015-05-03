@@ -59,6 +59,10 @@ public class WunderlistError {
         return "validation_error".equals(type);
     }
 
+    public boolean isParameterMissing() {
+        return "missing_parameter".equals(type);
+    }
+
     public Map<String, Object> getAdditionalParameters() {
         return params;
     }

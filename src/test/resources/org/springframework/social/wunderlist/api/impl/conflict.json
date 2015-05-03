@@ -1,0 +1,9 @@
+{
+  "error":
+  {
+    "type": "conflict",
+    "translation_key": "api_error_conflict",
+    "message": "There is a conflict with the given data.",
+    "revision_conflict": true
+  }
+}

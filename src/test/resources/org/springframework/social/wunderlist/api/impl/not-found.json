@@ -1,0 +1,8 @@
+{
+  "error":
+  {
+    "type": "not_found",
+    "translation_key": "api_error_not_found",
+    "message": "The resource you requested could not be found."
+  }
+}

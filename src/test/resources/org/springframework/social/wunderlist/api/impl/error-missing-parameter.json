@@ -1,0 +1,11 @@
+{
+  "error":
+  {
+    "type": "missing_parameter",
+    "translation_key": "api_error_missing_params",
+    "message": "Missing parameter.",
+    "revision": [
+      "required"
+    ]
+  }
+}

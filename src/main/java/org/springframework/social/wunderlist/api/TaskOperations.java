@@ -47,4 +47,13 @@ public interface TaskOperations {
      */
     List<WunderlistTask> getCompletedTasks(long listId, boolean completed);
 
+    /**
+     * Delete a task
+     *
+     * @param taskId the id of the task to be deleted
+     * @param revision the revision of the task (note that this must match with the current
+     * revision of the task, otherwise a {@link ConflictException} may occur)
+     */
+    void deleteTask(long taskId, long revision);
+
 }

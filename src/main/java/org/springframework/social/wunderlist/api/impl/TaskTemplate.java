@@ -56,4 +56,10 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
 
         return restTemplate.getForObject(buildUri("tasks", params), WunderlistTaskList.class);
     }
+
+    @Override
+    public void deleteTask(long taskId, long revision) {
+        requireAuthorization();
+        restTemplate.delete(buildUri("tasks/" + taskId, "revision", String.valueOf(revision)));
+    }
 }
