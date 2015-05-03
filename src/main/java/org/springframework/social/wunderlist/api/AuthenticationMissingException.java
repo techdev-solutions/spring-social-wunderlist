@@ -15,45 +15,12 @@
  */
 package org.springframework.social.wunderlist.api;
 
-import java.util.Date;
-
 /**
  * @author Alexander Hanschke
  */
-public class WunderlistUser {
+public class AuthenticationMissingException extends WunderlistApiException {
 
-    private Long id;
-    private String name;
-    private String email;
-    private Long revision;
-    private Date createdAt;
-
-    public Long getId() {
-        return id;
+    public AuthenticationMissingException(String message) {
+        super(message);
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Long getRevision() {
-        return revision;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
 }

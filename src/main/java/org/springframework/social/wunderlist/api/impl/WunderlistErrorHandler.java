@@ -21,7 +21,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.social.InternalServerErrorException;
+import org.springframework.social.MissingAuthorizationException;
 import org.springframework.social.UncategorizedApiException;
+import org.springframework.social.wunderlist.api.AuthenticationMissingException;
 import org.springframework.social.wunderlist.api.NotEnoughPermissionsException;
 import org.springframework.social.wunderlist.api.ValidationException;
 import org.springframework.web.client.DefaultResponseErrorHandler;
@@ -36,24 +38,52 @@ class WunderlistErrorHandler extends DefaultResponseErrorHandler {
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
         HttpStatus status = response.getStatusCode();
-        WunderlistError error = getError(response);
 
-        if (status == HttpStatus.UNPROCESSABLE_ENTITY) {
-            if (error.isValidationError()) {
-                throw new ValidationException(error.getAdditionalParameters().toString());
-            }
-        } else if (status == HttpStatus.INTERNAL_SERVER_ERROR) {
-            throw new InternalServerErrorException("wunderlist", error.getMessage());
-        } else if (status == HttpStatus.NOT_FOUND) {
-            if (error.isPermissionError()) {
-                throw new NotEnoughPermissionsException(error.getMessage());
-            }
+        /*
+         * UNAUTHORIZED response cannot be mapped as WunderlistError and are therefore
+         * handled before deserializing the error
+         */
+        if (status == HttpStatus.UNAUTHORIZED) {
+            throw new MissingAuthorizationException("wunderlist");
         }
 
-        try {
-            super.handleError(response);
-        } catch (Exception cause) {
-            throw new UncategorizedApiException("wunderlist", "Error consuming Wunderlist API", cause);
+        WunderlistError error = getError(response);
+
+        switch (status) {
+
+            case UNPROCESSABLE_ENTITY: {
+                if (error.isValidationError()) {
+                    throw new ValidationException(error.getAdditionalParameters().toString());
+                }
+                break;
+            }
+
+            case FORBIDDEN: {
+                if (error.getAdditionalParameters().containsKey("authentication")) {
+                    throw new AuthenticationMissingException("Authentication is missing (are 'X-Client-ID' and 'X-Access-Token' set?)");
+                }
+                break;
+            }
+
+            case NOT_FOUND: {
+                if (error.isPermissionError()) {
+                    throw new NotEnoughPermissionsException(error.getMessage());
+                }
+                break;
+            }
+
+            case INTERNAL_SERVER_ERROR: {
+                throw new InternalServerErrorException("wunderlist", error.getMessage());
+            }
+
+            default: {
+                try {
+                    super.handleError(response);
+                } catch (Exception cause) {
+                    throw new UncategorizedApiException("wunderlist", "Error consuming Wunderlist API", cause);
+                }
+            }
+
         }
     }
 

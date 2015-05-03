@@ -18,6 +18,8 @@ package org.springframework.social.wunderlist.api.impl;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.social.InternalServerErrorException;
+import org.springframework.social.MissingAuthorizationException;
+import org.springframework.social.wunderlist.api.AuthenticationMissingException;
 import org.springframework.social.wunderlist.api.NotEnoughPermissionsException;
 
 import static org.springframework.http.HttpMethod.GET;
@@ -49,6 +51,28 @@ public class ErrorHandlingTest extends AbstractWunderlistApiTest {
             .andExpect(header("X-Client-ID", "CLIENT_ID"))
             .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
             .andRespond(with(HttpStatus.INTERNAL_SERVER_ERROR, jsonResource("internal-server-error"), APPLICATION_JSON));
+
+        wunderlist.userOperations().getUser();
+    }
+
+    @Test(expected = AuthenticationMissingException.class)
+    public void shouldHandleMissingAuthentication() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/user"))
+            .andExpect(method(GET))
+            .andRespond(with(HttpStatus.FORBIDDEN, jsonResource("error-authentication-missing"), APPLICATION_JSON));
+
+        wunderlist.userOperations().getUser();
+    }
+
+    @Test(expected = MissingAuthorizationException.class)
+    public void shouldHandleUnauthorized() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/user"))
+            .andExpect(method(GET))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andRespond(with(HttpStatus.UNAUTHORIZED, jsonResource("unauthorized"), APPLICATION_JSON));
 
         wunderlist.userOperations().getUser();
     }
