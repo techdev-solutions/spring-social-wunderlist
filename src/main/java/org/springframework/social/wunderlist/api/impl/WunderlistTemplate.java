@@ -36,9 +36,6 @@ import java.util.List;
  */
 public class WunderlistTemplate extends AbstractOAuth2ApiBinding implements Wunderlist {
 
-    private final String clientId;
-    private final String accessToken;
-
     private UserOperations userOperations;
 
     private ListOperations listOperations;
@@ -47,10 +44,8 @@ public class WunderlistTemplate extends AbstractOAuth2ApiBinding implements Wund
 
     public WunderlistTemplate(String accessToken, String clientId) {
         super(accessToken);
-        this.clientId = clientId;
-        this.accessToken = accessToken;
 
-        reconfigureRestTemplate();
+        registerInterceptors(clientId, accessToken);
         initOperations();
     }
 
@@ -71,7 +66,7 @@ public class WunderlistTemplate extends AbstractOAuth2ApiBinding implements Wund
         return converter;
     }
 
-    private void reconfigureRestTemplate() {
+    private void registerInterceptors(String clientId, String accessToken) {
         List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>(1);
         interceptors.add(new WunderlistTokenRequestInterceptor(clientId, accessToken));
 
