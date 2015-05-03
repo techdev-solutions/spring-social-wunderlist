@@ -15,15 +15,13 @@
  */
 package org.springframework.social.wunderlist.api;
 
-import org.springframework.social.OperationNotPermittedException;
-
 /**
  * @author Alexander Hanschke
  */
-public class InvalidTitleException extends OperationNotPermittedException {
+public class NotEnoughPermissionsException extends WunderlistApiException {
 
-    public InvalidTitleException(String message) {
-        super("wunderlist", message);
+    public NotEnoughPermissionsException(String message) {
+        super(message);
     }
 
 }

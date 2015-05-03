@@ -15,11 +15,12 @@
  */
 package org.springframework.social.wunderlist.api.impl;
 
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Alexander Hanschke
@@ -29,30 +30,43 @@ public class WunderlistError {
 
     @JsonProperty("type")
     private String type;
-    @JsonProperty("translation_key")
-    private String translationKey;
+
     @JsonProperty("message")
     private String message;
-    @JsonProperty("title")
-    private List<String> titleErrors = new ArrayList<String>();
+
+    @JsonProperty("translation_key")
+    private String translationKey;
+
+    private Map<String, Object> params = new HashMap<String, Object>();
 
     public String getType() {
         return type;
-    }
-
-    public String getTranslationKey() {
-        return translationKey;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public List<String> getTitleErrors() {
-        return titleErrors;
+    public String getTranslationKey() {
+        return translationKey;
     }
 
-    public boolean affectsTitle() {
-        return !titleErrors.isEmpty();
+    public boolean isPermissionError() {
+        return "permission_error".equals(type);
     }
+
+    public boolean isValidationError() {
+        return "validation_error".equals(type);
+    }
+
+    public Map<String, Object> getAdditionalParameters() {
+        return params;
+    }
+
+    @JsonAnySetter
+    protected void handleAdditionalParameters(String key, Object value) {
+        params.put(key, value);
+    }
+
+
 }

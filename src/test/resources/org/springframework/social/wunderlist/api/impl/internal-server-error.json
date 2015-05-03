@@ -1,0 +1,8 @@
+{
+  "error":
+  {
+    "type": "server_error",
+    "translation_key": "api_error_unknown",
+    "message": "An unknown server error occurred"
+  }
+}

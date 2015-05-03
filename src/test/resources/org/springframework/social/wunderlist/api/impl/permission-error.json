@@ -1,0 +1,9 @@
+{
+  "error":
+  {
+    "type": "permission_error",
+    "translation_key": "api_error_permission_error",
+    "message": "You've not enough permissions.",
+    "permissions": "failed"
+  }
+}

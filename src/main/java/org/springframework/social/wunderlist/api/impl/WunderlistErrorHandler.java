@@ -20,8 +20,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.social.InternalServerErrorException;
 import org.springframework.social.UncategorizedApiException;
-import org.springframework.social.wunderlist.api.InvalidTitleException;
+import org.springframework.social.wunderlist.api.NotEnoughPermissionsException;
+import org.springframework.social.wunderlist.api.ValidationException;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import java.io.IOException;
@@ -37,8 +39,14 @@ class WunderlistErrorHandler extends DefaultResponseErrorHandler {
         WunderlistError error = getError(response);
 
         if (status == HttpStatus.UNPROCESSABLE_ENTITY) {
-            if (error.affectsTitle()) {
-                throw new InvalidTitleException(error.getTitleErrors().toString());
+            if (error.isValidationError()) {
+                throw new ValidationException(error.getAdditionalParameters().toString());
+            }
+        } else if (status == HttpStatus.INTERNAL_SERVER_ERROR) {
+            throw new InternalServerErrorException("wunderlist", error.getMessage());
+        } else if (status == HttpStatus.NOT_FOUND) {
+            if (error.isPermissionError()) {
+                throw new NotEnoughPermissionsException(error.getMessage());
             }
         }
 

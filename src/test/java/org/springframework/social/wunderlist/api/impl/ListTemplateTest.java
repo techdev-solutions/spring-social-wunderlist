@@ -17,7 +17,7 @@ package org.springframework.social.wunderlist.api.impl;
 
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
-import org.springframework.social.wunderlist.api.InvalidTitleException;
+import org.springframework.social.wunderlist.api.ValidationException;
 import org.springframework.social.wunderlist.api.WunderlistList;
 import org.springframework.social.wunderlist.api.WunderlistTasksCount;
 
@@ -103,7 +103,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         assertNotNull(list);
     }
 
-    @Test(expected = InvalidTitleException.class)
+    @Test(expected = ValidationException.class)
     public void shouldNotCreateListWithEmptyTitle() {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
@@ -117,7 +117,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         wunderlist.listOperations().create("");
     }
 
-    @Test(expected = InvalidTitleException.class)
+    @Test(expected = ValidationException.class)
     public void shouldNotCreateListWithOverlongTitle() {
         String title = new String(new char[256]).replace('\0', 'x');
 
