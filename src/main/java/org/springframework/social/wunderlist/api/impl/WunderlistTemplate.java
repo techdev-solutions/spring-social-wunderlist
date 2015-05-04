@@ -24,6 +24,7 @@ import org.springframework.social.wunderlist.api.ListOperations;
 import org.springframework.social.wunderlist.api.TaskOperations;
 import org.springframework.social.wunderlist.api.UserOperations;
 import org.springframework.social.wunderlist.api.Wunderlist;
+import org.springframework.social.wunderlist.api.impl.handler.DelegatingErrorHandler;
 import org.springframework.social.wunderlist.api.impl.json.WunderlistModule;
 import org.springframework.social.wunderlist.connect.support.WunderlistTokenRequestInterceptor;
 import org.springframework.web.client.RestOperations;
@@ -69,7 +70,7 @@ public class WunderlistTemplate extends AbstractOAuth2ApiBinding implements Wund
 
     @Override
     protected void configureRestTemplate(RestTemplate restTemplate) {
-        restTemplate.setErrorHandler(new WunderlistErrorHandler());
+        restTemplate.setErrorHandler(new DelegatingErrorHandler());
     }
 
     private void registerInterceptors(String clientId, String accessToken) {
