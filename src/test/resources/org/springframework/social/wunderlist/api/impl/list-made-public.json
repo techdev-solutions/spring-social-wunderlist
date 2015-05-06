@@ -1,0 +1,11 @@
+{
+  "id": 111111111,
+  "title": "public-list",
+  "owner_type": "user",
+  "owner_id": 6666666,
+  "list_type": "list",
+  "public": true,
+  "revision": 5,
+  "created_at": "2015-05-06T20:00:00.000Z",
+  "type": "list"
+}

@@ -27,9 +27,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.springframework.http.HttpMethod.DELETE;
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.*;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withNoContent;
@@ -146,6 +144,22 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andRespond(withNoContent());
 
         wunderlist.listOperations().deleteList(666, 10);
+    }
+
+    @Test
+    public void shouldMakeListPublic() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/lists/111111111"))
+            .andExpect(method(PATCH))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
+            .andExpect(jsonPath("$.revision", is(4)))
+            .andExpect(jsonPath("$.public", is(true)))
+            .andRespond(withSuccess(jsonResource("list-made-public"), APPLICATION_JSON));
+
+        WunderlistList list = wunderlist.listOperations().publicizeList(111111111, true, 4);
+        assertNotNull(list);
     }
 
 }
