@@ -22,6 +22,7 @@ import org.springframework.social.wunderlist.api.impl.WunderlistTemplate;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 public class WunderlistServiceProvider extends AbstractOAuth2ServiceProvider<Wunderlist> {
 

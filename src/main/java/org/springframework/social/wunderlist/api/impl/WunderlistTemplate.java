@@ -35,6 +35,7 @@ import java.util.List;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 public class WunderlistTemplate extends AbstractOAuth2ApiBinding implements Wunderlist {
 

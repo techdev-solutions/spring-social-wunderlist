@@ -17,6 +17,7 @@ package org.springframework.social.wunderlist.api;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 public class MissingParameterException extends WunderlistApiException {
 

@@ -24,6 +24,7 @@ import org.springframework.social.wunderlist.api.Wunderlist;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 public class WunderlistAdapter implements ApiAdapter<Wunderlist> {
 

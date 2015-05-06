@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 public interface TaskOperations {
 
@@ -55,5 +56,13 @@ public interface TaskOperations {
      * revision of the task, otherwise a {@link ConflictException} may occur)
      */
     void deleteTask(long taskId, long revision);
+
+    /**
+     * Create a task
+     *
+     * @param data the data of the task to be created
+     * @return the created task
+     */
+    WunderlistTask createTask(WunderlistTaskData data);
 
 }

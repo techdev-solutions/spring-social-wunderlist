@@ -21,6 +21,7 @@ dependencies{
     compile ("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
 
     testCompile ("junit:junit:$junitVersion")
+    testCompile ("com.jayway.jsonpath:json-path:$jsonPathVersion")
     testCompile ("org.mockito:mockito-core:$mockitoVersion")
     testCompile ("org.springframework:spring-test:$springVersion")
     testCompile ("org.springframework.social:spring-social-test:$springSocialTestVersion")

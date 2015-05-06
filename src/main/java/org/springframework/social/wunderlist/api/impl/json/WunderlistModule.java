@@ -16,13 +16,11 @@
 package org.springframework.social.wunderlist.api.impl.json;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.springframework.social.wunderlist.api.WunderlistList;
-import org.springframework.social.wunderlist.api.WunderlistTask;
-import org.springframework.social.wunderlist.api.WunderlistTasksCount;
-import org.springframework.social.wunderlist.api.WunderlistUser;
+import org.springframework.social.wunderlist.api.*;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 public class WunderlistModule extends SimpleModule {
 

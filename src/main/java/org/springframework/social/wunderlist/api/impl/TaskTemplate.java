@@ -17,6 +17,7 @@ package org.springframework.social.wunderlist.api.impl;
 
 import org.springframework.social.wunderlist.api.TaskOperations;
 import org.springframework.social.wunderlist.api.WunderlistTask;
+import org.springframework.social.wunderlist.api.WunderlistTaskData;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -25,6 +26,7 @@ import java.util.List;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 class TaskTemplate extends AbstractWunderlistOperations implements TaskOperations {
 
@@ -61,5 +63,11 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     public void deleteTask(long taskId, long revision) {
         requireAuthorization();
         restTemplate.delete(buildUri("tasks/" + taskId, "revision", String.valueOf(revision)));
+    }
+
+    @Override
+    public WunderlistTask createTask(WunderlistTaskData data) {
+        requireAuthorization();
+        return restTemplate.postForObject(buildUri("tasks"), data, WunderlistTask.class);
     }
 }

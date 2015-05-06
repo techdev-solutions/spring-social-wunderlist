@@ -13,39 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.connect.support;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package org.springframework.social.wunderlist.api;
 
 /**
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-public class AccessTokenRequest {
+public class Recurrence {
 
-    @JsonProperty("client_id")
-    private String id;
-    @JsonProperty("client_secret")
-    private String secret;
-    @JsonProperty("code")
-    private String code;
-
-    public AccessTokenRequest(String id, String secret, String code) {
-        this.id = id;
-        this.code = code;
-        this.secret = secret;
+    public enum Type {
+        DAY, WEEK, MONTH, YEAR
     }
 
-    public String getId() {
-        return id;
+    private final Type type;
+    private final long count;
+
+    public Recurrence(long count, Type type) {
+        if (count < 1) {
+            throw new IllegalArgumentException("recurrence count must be greater than 0");
+        }
+        this.type = type;
+        this.count = count;
     }
 
-    public String getSecret() {
-        return secret;
+    public Type getType() {
+        return type;
     }
 
-    public String getCode() {
-        return code;
+    public long getCount() {
+        return count;
     }
 
 }

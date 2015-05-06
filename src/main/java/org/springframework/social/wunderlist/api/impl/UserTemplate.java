@@ -23,6 +23,7 @@ import java.util.List;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 class UserTemplate extends AbstractWunderlistOperations implements UserOperations {
 

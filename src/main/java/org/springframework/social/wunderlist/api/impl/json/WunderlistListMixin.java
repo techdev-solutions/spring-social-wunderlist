@@ -21,6 +21,7 @@ import java.util.Date;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 abstract class WunderlistListMixin {
 

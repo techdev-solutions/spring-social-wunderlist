@@ -27,6 +27,7 @@ import java.util.Map;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 public class WunderlistOAuth2Template extends OAuth2Template {
 

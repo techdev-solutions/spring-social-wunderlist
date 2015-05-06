@@ -20,6 +20,7 @@ import org.springframework.web.client.RestOperations;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 public interface Wunderlist extends ApiBinding {
 

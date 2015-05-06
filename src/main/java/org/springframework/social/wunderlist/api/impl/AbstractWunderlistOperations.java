@@ -24,6 +24,7 @@ import java.net.URI;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 class AbstractWunderlistOperations {
 

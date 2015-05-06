@@ -16,14 +16,17 @@
 package org.springframework.social.wunderlist.api.impl;
 
 import org.junit.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.social.wunderlist.api.Recurrence;
 import org.springframework.social.wunderlist.api.WunderlistTask;
+import org.springframework.social.wunderlist.api.WunderlistTaskData;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
-import static org.springframework.http.HttpMethod.DELETE;
-import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.*;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withNoContent;
@@ -107,6 +110,35 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andRespond(withNoContent());
 
         wunderlist.taskOperations().deleteTask(666, 10);
+    }
+
+    @Test
+    public void shouldCreateTask() throws Exception {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/tasks"))
+            .andExpect(method(POST))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
+            .andExpect(jsonPath("$.list_id", is(666)))
+            .andExpect(jsonPath("$.title", is("test task")))
+            .andExpect(jsonPath("$.assignee_id", is(1000)))
+            .andExpect(jsonPath("$.completed", is(false)))
+            .andExpect(jsonPath("$.recurrence_type", is("week")))
+            .andExpect(jsonPath("$.recurrence_count", is(2)))
+            .andExpect(jsonPath("$.due_date", is("2020-12-24")))
+            .andExpect(jsonPath("$.starred", is(true)))
+            .andRespond(with(HttpStatus.CREATED, jsonResource("list-created"), APPLICATION_JSON));
+
+        WunderlistTaskData data = new WunderlistTaskData(666, "test task")
+            .assignedTo(1000)
+            .completed(false)
+            .due(new SimpleDateFormat("yyyy-MM-dd").parse("2020-12-24"))
+            .every(new Recurrence(2, Recurrence.Type.WEEK))
+            .starred(true);
+
+        WunderlistTask task = wunderlist.taskOperations().createTask(data);
+        assertNotNull(task);
     }
 
 

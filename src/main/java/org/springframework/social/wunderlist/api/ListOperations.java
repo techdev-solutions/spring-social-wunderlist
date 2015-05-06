@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 public interface ListOperations {
 

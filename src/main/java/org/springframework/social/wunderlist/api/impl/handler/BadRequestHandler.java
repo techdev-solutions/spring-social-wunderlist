@@ -24,6 +24,7 @@ import java.io.IOException;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 class BadRequestHandler extends DefaultResponseErrorHandler {
 

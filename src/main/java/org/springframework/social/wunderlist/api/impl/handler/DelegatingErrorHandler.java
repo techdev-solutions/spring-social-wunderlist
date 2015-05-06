@@ -25,6 +25,7 @@ import java.util.Map;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 public class DelegatingErrorHandler extends DefaultResponseErrorHandler {
 

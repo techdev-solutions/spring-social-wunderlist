@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 abstract class WunderlistTasksCountMixin {
 

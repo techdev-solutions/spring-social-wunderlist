@@ -24,6 +24,7 @@ import org.springframework.social.wunderlist.api.WunderlistTasksCount;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.http.HttpMethod.GET;
@@ -96,7 +97,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(header("X-Client-ID", "CLIENT_ID"))
             .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
-            .andExpect(content().string("{\"title\":\"a test list\"}"))
+            .andExpect(jsonPath("$.title", is("a test list")))
             .andRespond(with(HttpStatus.CREATED, jsonResource("list-created"), APPLICATION_JSON));
 
         WunderlistList list = wunderlist.listOperations().create("a test list");
@@ -111,7 +112,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(header("X-Client-ID", "CLIENT_ID"))
             .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
-            .andExpect(content().string("{\"title\":\"\"}"))
+            .andExpect(jsonPath("$.title", is("")))
             .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-empty"), APPLICATION_JSON));
 
         wunderlist.listOperations().create("");
@@ -127,7 +128,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(header("X-Client-ID", "CLIENT_ID"))
             .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
-            .andExpect(content().string("{\"title\":\"" + title + "\"}"))
+            .andExpect(jsonPath("$.title", is(title)))
             .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-too-long"), APPLICATION_JSON));
 
         wunderlist.listOperations().create(title);

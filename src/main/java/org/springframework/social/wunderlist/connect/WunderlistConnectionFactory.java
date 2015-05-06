@@ -20,6 +20,7 @@ import org.springframework.social.wunderlist.api.Wunderlist;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 public class WunderlistConnectionFactory extends OAuth2ConnectionFactory<Wunderlist> {
 

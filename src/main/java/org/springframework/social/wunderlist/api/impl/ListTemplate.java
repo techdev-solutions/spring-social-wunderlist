@@ -26,6 +26,7 @@ import java.util.Map;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 class ListTemplate extends AbstractWunderlistOperations implements ListOperations {
 

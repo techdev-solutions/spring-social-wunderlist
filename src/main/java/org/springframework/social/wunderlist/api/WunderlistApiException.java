@@ -19,6 +19,7 @@ import org.springframework.social.ApiException;
 
 /**
  * @author Alexander Hanschke
+ * @since 1.0.0
  */
 public abstract class WunderlistApiException extends ApiException {
 
