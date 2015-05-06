@@ -27,10 +27,12 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.*;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withNoContent;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 /**
@@ -132,6 +134,18 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-too-long"), APPLICATION_JSON));
 
         wunderlist.listOperations().create(title);
+    }
+
+    @Test
+    public void shouldDeleteList() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/lists/666?revision=10"))
+            .andExpect(method(DELETE))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andRespond(withNoContent());
+
+        wunderlist.listOperations().deleteList(666, 10);
     }
 
 }

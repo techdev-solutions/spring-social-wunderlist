@@ -53,4 +53,13 @@ public interface ListOperations {
      * @return the created list
      */
     WunderlistList create(String title);
+
+    /**
+     * Delete a list permanently
+     *
+     * @param listId the id of the list to be deleted
+     * @param revision the revision of the list (note that this must match with the current
+     * revision of the list, otherwise a {@link ConflictException} may occur)
+     */
+    void deleteList(long listId, long revision);
 }

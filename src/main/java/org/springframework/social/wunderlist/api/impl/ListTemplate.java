@@ -65,5 +65,9 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
         return restTemplate.postForObject(buildUri("lists"), params, WunderlistList.class);
     }
 
-
+    @Override
+    public void deleteList(long listId, long revision) {
+        requireAuthorization();
+        restTemplate.delete(buildUri("lists/" + listId, "revision", String.valueOf(revision)));
+    }
 }
