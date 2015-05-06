@@ -52,7 +52,7 @@ public interface ListOperations {
      * @param title the title for the new list
      * @return the created list
      */
-    WunderlistList create(String title);
+    WunderlistList createList(String title);
 
     /**
      * Delete a list permanently

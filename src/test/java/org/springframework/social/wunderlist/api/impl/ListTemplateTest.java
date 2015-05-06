@@ -102,7 +102,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.title", is("a test list")))
             .andRespond(with(HttpStatus.CREATED, jsonResource("list-created"), APPLICATION_JSON));
 
-        WunderlistList list = wunderlist.listOperations().create("a test list");
+        WunderlistList list = wunderlist.listOperations().createList("a test list");
         assertNotNull(list);
     }
 
@@ -117,7 +117,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.title", is("")))
             .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-empty"), APPLICATION_JSON));
 
-        wunderlist.listOperations().create("");
+        wunderlist.listOperations().createList("");
     }
 
     @Test(expected = ValidationException.class)
@@ -133,7 +133,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.title", is(title)))
             .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-too-long"), APPLICATION_JSON));
 
-        wunderlist.listOperations().create(title);
+        wunderlist.listOperations().createList(title);
     }
 
     @Test

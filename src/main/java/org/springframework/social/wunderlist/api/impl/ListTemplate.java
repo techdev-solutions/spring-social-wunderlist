@@ -56,7 +56,7 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
     }
 
     @Override
-    public WunderlistList create(String title) {
+    public WunderlistList createList(String title) {
         requireAuthorization();
 
         Map<String, String> params = new HashMap<String, String>(1);
