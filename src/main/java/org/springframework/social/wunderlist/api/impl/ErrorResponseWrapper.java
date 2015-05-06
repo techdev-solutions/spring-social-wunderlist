@@ -35,27 +35,31 @@ public class ErrorResponseWrapper {
     }
 
     public boolean isPermissionError() {
-        return hasType() && "permission_error".equals(node.get("error").get("type").asText());
+        return hasType() && "permission_error".equals(getError().get("type").asText());
     }
 
     public boolean isError() {
-        return node.get("error") != null;
+        return getError() != null;
     }
 
     public boolean hasType() {
-        return isError() && node.get("error").get("type") != null;
+        return isError() && getError().get("type") != null;
     }
 
     public boolean hasMessage() {
-        return isError() && node.get("error").get("message") != null;
+        return isError() && getError().get("message") != null;
     }
 
     public String getMessage() {
         if (hasMessage()) {
-            return node.get("error").get("message").asText();
+            return getError().get("message").asText();
         }
 
         return null;
+    }
+
+    public JsonNode getError() {
+        return node.get("error");
     }
 
     private JsonNode asJson(ClientHttpResponse response) throws IOException {

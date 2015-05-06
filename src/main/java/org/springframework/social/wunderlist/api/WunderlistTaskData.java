@@ -16,6 +16,7 @@
 package org.springframework.social.wunderlist.api;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.springframework.social.wunderlist.api.impl.Dates;
 import org.springframework.social.wunderlist.api.impl.json.WunderlistTaskDataSerializer;
 
 import java.util.Date;
@@ -61,7 +62,7 @@ public class WunderlistTaskData {
     }
 
     public Date getDueDate() {
-        return due;
+        return Dates.safeCopy(due);
     }
 
     public boolean isStarred() {
@@ -89,7 +90,7 @@ public class WunderlistTaskData {
     }
 
     public WunderlistTaskData due(Date due) {
-        this.due = due;
+        this.due = Dates.safeCopy(due);
         return this;
     }
 

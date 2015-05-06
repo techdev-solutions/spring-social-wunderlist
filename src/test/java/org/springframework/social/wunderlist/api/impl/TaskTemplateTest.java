@@ -128,7 +128,7 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.recurrence_count", is(2)))
             .andExpect(jsonPath("$.due_date", is("2020-12-24")))
             .andExpect(jsonPath("$.starred", is(true)))
-            .andRespond(with(HttpStatus.CREATED, jsonResource("list-created"), APPLICATION_JSON));
+            .andRespond(with(HttpStatus.CREATED, jsonResource("task-created"), APPLICATION_JSON));
 
         WunderlistTaskData data = new WunderlistTaskData(666, "test task")
             .assignedTo(1000)

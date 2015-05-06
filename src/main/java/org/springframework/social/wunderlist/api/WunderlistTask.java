@@ -15,6 +15,8 @@
  */
 package org.springframework.social.wunderlist.api;
 
+import org.springframework.social.wunderlist.api.impl.Dates;
+
 import java.util.Date;
 
 /**
@@ -47,7 +49,7 @@ public class WunderlistTask {
     }
 
     public Date getCreatedAt() {
-        return createdAt;
+        return Dates.safeCopy(createdAt);
     }
 
     public Long getCreatedById() {
@@ -55,7 +57,7 @@ public class WunderlistTask {
     }
 
     public Date getDueDate() {
-        return dueDate;
+        return Dates.safeCopy(dueDate);
     }
 
     public Long getListId() {
