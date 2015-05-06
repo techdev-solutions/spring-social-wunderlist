@@ -90,4 +90,20 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
         HttpEntity<WunderlistList> response = restTemplate.exchange(buildUri("lists/" + listId), HttpMethod.PATCH, request, WunderlistList.class);
         return response.getBody();
     }
+
+    @Override
+    public WunderlistList updateTitle(long listId, String newTitle, long revision) {
+        requireAuthorization();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/json;charset=UTF-8"));
+
+        Map<String, Object> params = new HashMap<String, Object>(2);
+        params.put("title", newTitle);
+        params.put("revision", revision);
+
+        HttpEntity request = new HttpEntity(params, headers);
+
+        HttpEntity<WunderlistList> response = restTemplate.exchange(buildUri("lists/" + listId), HttpMethod.PATCH, request, WunderlistList.class);
+        return response.getBody();
+    }
 }

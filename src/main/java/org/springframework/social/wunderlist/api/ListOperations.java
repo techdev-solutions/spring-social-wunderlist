@@ -73,4 +73,15 @@ public interface ListOperations {
      * @return the changed list
      */
     WunderlistList publicizeList(long listId, boolean makePublic, long revision);
+
+    /**
+     * Update the title of an existing list
+     *
+     * @param listId the id of the list to be updated
+     * @param newTitle the new title of the list
+     * @param revision the revision of the list (note that this must match with the current
+     * revision of the list, otherwise a {@link ConflictException} may occur)
+     * @return the changed list
+     */
+    WunderlistList updateTitle(long listId, String newTitle, long revision);
 }

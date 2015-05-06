@@ -149,16 +149,32 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
     @Test
     public void shouldMakeListPublic() {
         server
-            .expect(requestTo("https://a.wunderlist.com/api/v1/lists/111111111"))
+            .expect(requestTo("https://a.wunderlist.com/api/v1/lists/666"))
             .andExpect(method(PATCH))
             .andExpect(header("X-Client-ID", "CLIENT_ID"))
             .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
-            .andExpect(jsonPath("$.revision", is(4)))
+            .andExpect(jsonPath("$.revision", is(10)))
             .andExpect(jsonPath("$.public", is(true)))
-            .andRespond(withSuccess(jsonResource("list-made-public"), APPLICATION_JSON));
+            .andRespond(withSuccess(jsonResource("list-changed"), APPLICATION_JSON));
 
-        WunderlistList list = wunderlist.listOperations().publicizeList(111111111, true, 4);
+        WunderlistList list = wunderlist.listOperations().publicizeList(666, true, 10);
+        assertNotNull(list);
+    }
+
+    @Test
+    public void shouldUpdateListTitle() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/lists/666"))
+            .andExpect(method(PATCH))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
+            .andExpect(jsonPath("$.revision", is(10)))
+            .andExpect(jsonPath("$.title", is("a fresh new title")))
+            .andRespond(withSuccess(jsonResource("list-changed"), APPLICATION_JSON));
+
+        WunderlistList list = wunderlist.listOperations().updateTitle(666, "a fresh new title", 10);
         assertNotNull(list);
     }
 
