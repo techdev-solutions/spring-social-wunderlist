@@ -76,4 +76,24 @@ public interface TaskOperations {
      */
     WunderlistTask updateTask(UpdateTaskData data);
 
+    /**
+     * Remove the assignee from an existing task
+     *
+     * @param taskId the id of the task to be changed
+     * @param revision the revision of the task (note that this must match with the current
+     * revision of the task, otherwise a {@link ConflictException} may occur)
+     * @return the updated task
+     */
+    WunderlistTask removeAssignee(long taskId, long revision);
+
+    /**
+     * Remove the due date from an existing task
+     *
+     * @param taskId the id of the task to be changed
+     * @param revision the revision of the task (note that this must match with the current
+     * revision of the task, otherwise a {@link ConflictException} may occur)
+     * @return the updated task
+     */
+    WunderlistTask removeDueDate(long taskId, long revision);
+
 }

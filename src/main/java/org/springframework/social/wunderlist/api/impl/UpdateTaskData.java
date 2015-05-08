@@ -15,9 +15,7 @@
  */
 package org.springframework.social.wunderlist.api.impl;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.social.wunderlist.api.Recurrence;
-import org.springframework.social.wunderlist.api.impl.json.UpdateTaskDataSerializer;
 
 import java.util.Date;
 
@@ -25,7 +23,6 @@ import java.util.Date;
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-@JsonSerialize(using = UpdateTaskDataSerializer.class)
 public class UpdateTaskData {
 
     private final long taskId;

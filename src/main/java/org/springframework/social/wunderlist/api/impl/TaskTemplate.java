@@ -25,7 +25,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Alexander Hanschke
@@ -91,5 +91,31 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
 
         HttpEntity<WunderlistTask> response = restTemplate.exchange(buildUri("tasks/" + data.getTaskId()), HttpMethod.PATCH, request, WunderlistTask.class);
         return response.getBody();
+    }
+
+    @Override
+    public WunderlistTask removeAssignee(long taskId, long revision) {
+        requireAuthorization();
+        return removeProperty(taskId, revision, "assignee_id");
+    }
+
+    @Override
+    public WunderlistTask removeDueDate(long taskId, long revision) {
+        requireAuthorization();
+        return removeProperty(taskId, revision, "due_date");
+    }
+
+    private WunderlistTask removeProperty(long taskId, long revision, String property) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("revision", revision);
+        map.put("remove", Collections.singletonList(property).toArray(new String[1]));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/json;charset=UTF-8"));
+
+        HttpEntity request = new HttpEntity(map, headers);
+
+        HttpEntity<WunderlistTask> reponse = restTemplate.exchange(buildUri("tasks/" + taskId), HttpMethod.PATCH, request, WunderlistTask.class);
+        return reponse.getBody();
     }
 }

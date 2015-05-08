@@ -100,7 +100,8 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.title", is("a test list")))
             .andRespond(with(HttpStatus.CREATED, jsonResource("list-created"), APPLICATION_JSON));
 
-        WunderlistList list = wunderlist.listOperations().createList("a test list");
+        CreateListData data = new CreateListData("a test list");
+        WunderlistList list = wunderlist.listOperations().createList(data);
         assertNotNull(list);
     }
 
@@ -115,7 +116,8 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.title", is("")))
             .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-empty"), APPLICATION_JSON));
 
-        wunderlist.listOperations().createList("");
+        CreateListData data = new CreateListData("");
+        wunderlist.listOperations().createList(data);
     }
 
     @Test(expected = ValidationException.class)
@@ -131,7 +133,8 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.title", is(title)))
             .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-too-long"), APPLICATION_JSON));
 
-        wunderlist.listOperations().createList(title);
+        CreateListData data = new CreateListData(title);
+        wunderlist.listOperations().createList(data);
     }
 
     @Test
@@ -163,7 +166,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
     }
 
     @Test
-    public void shouldUpdateListTitle() {
+    public void shouldUpdateList() {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists/666"))
             .andExpect(method(PATCH))
@@ -174,7 +177,10 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.title", is("a fresh new title")))
             .andRespond(withSuccess(jsonResource("list-changed"), APPLICATION_JSON));
 
-        WunderlistList list = wunderlist.listOperations().updateTitle(666, "a fresh new title", 10);
+        UpdateListData data = new UpdateListData(666, 10)
+            .withTitle("a fresh new title");
+
+        WunderlistList list = wunderlist.listOperations().updateList(data);
         assertNotNull(list);
     }
 

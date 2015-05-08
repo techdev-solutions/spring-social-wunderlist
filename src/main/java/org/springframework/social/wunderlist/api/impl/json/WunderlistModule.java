@@ -16,7 +16,13 @@
 package org.springframework.social.wunderlist.api.impl.json;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.springframework.social.wunderlist.api.*;
+import org.springframework.social.wunderlist.api.WunderlistList;
+import org.springframework.social.wunderlist.api.WunderlistTask;
+import org.springframework.social.wunderlist.api.WunderlistTasksCount;
+import org.springframework.social.wunderlist.api.WunderlistUser;
+import org.springframework.social.wunderlist.api.impl.CreateListData;
+import org.springframework.social.wunderlist.api.impl.CreateTaskData;
+import org.springframework.social.wunderlist.api.impl.UpdateTaskData;
 
 /**
  * @author Alexander Hanschke
@@ -26,13 +32,17 @@ public class WunderlistModule extends SimpleModule {
 
     public WunderlistModule() {
         super("WunderlistModule");
+        init();
     }
 
-    @Override
-    public void setupModule(SetupContext context) {
-        context.setMixInAnnotations(WunderlistUser.class, WunderlistUserMixin.class);
-        context.setMixInAnnotations(WunderlistList.class, WunderlistListMixin.class);
-        context.setMixInAnnotations(WunderlistTask.class, WunderlistTaskMixin.class);
-        context.setMixInAnnotations(WunderlistTasksCount.class, WunderlistTasksCountMixin.class);
+    private void init() {
+        addSerializer(CreateListData.class, new CreateListDataSerializer());
+        addSerializer(CreateTaskData.class, new CreateTaskDataSerializer());
+        addSerializer(UpdateTaskData.class, new UpdateTaskDataSerializer());
+
+        setMixInAnnotation(WunderlistUser.class, WunderlistUserMixin.class);
+        setMixInAnnotation(WunderlistList.class, WunderlistListMixin.class);
+        setMixInAnnotation(WunderlistTask.class, WunderlistTaskMixin.class);
+        setMixInAnnotation(WunderlistTasksCount.class, WunderlistTasksCountMixin.class);
     }
 }

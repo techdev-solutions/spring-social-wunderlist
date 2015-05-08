@@ -60,13 +60,14 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
     }
 
     @Override
-    public WunderlistList createList(String title) {
+    public WunderlistList createList(CreateListData data) {
         requireAuthorization();
 
-        Map<String, String> params = new HashMap<String, String>(1);
-        params.put("title", title);
+        if (data == null) {
+            throw new IllegalArgumentException("list data must not be null");
+        }
 
-        return restTemplate.postForObject(buildUri("lists"), params, WunderlistList.class);
+        return restTemplate.postForObject(buildUri("lists"), data, WunderlistList.class);
     }
 
     @Override
@@ -104,6 +105,22 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
         HttpEntity request = new HttpEntity(params, headers);
 
         HttpEntity<WunderlistList> response = restTemplate.exchange(buildUri("lists/" + listId), HttpMethod.PATCH, request, WunderlistList.class);
+        return response.getBody();
+    }
+
+    @Override
+    public WunderlistList updateList(UpdateListData data) {
+        requireAuthorization();
+        if (data == null) {
+            throw new IllegalArgumentException("list data must not be null");
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/json;charset=UTF-8"));
+
+        HttpEntity<UpdateListData> request = new HttpEntity(data, headers);
+
+        HttpEntity<WunderlistList> response = restTemplate.exchange(buildUri("lists/" + data.getListId()), HttpMethod.PATCH, request, WunderlistList.class);
         return response.getBody();
     }
 }

@@ -15,6 +15,9 @@
  */
 package org.springframework.social.wunderlist.api;
 
+import org.springframework.social.wunderlist.api.impl.CreateListData;
+import org.springframework.social.wunderlist.api.impl.UpdateListData;
+
 import java.util.List;
 
 /**
@@ -49,10 +52,10 @@ public interface ListOperations {
     /**
      * Create a list
      *
-     * @param title the title for the new list
+     * @param data the data for the new list
      * @return the created list
      */
-    WunderlistList createList(String title);
+    WunderlistList createList(CreateListData data);
 
     /**
      * Delete a list permanently
@@ -73,6 +76,14 @@ public interface ListOperations {
      * @return the changed list
      */
     WunderlistList publicizeList(long listId, boolean makePublic, long revision);
+
+    /**
+     * Update an existing list
+     *
+     * @param data the changed list data
+     * @return the updated list
+     */
+    WunderlistList updateList(UpdateListData data);
 
     /**
      * Update the title of an existing list
