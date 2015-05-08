@@ -15,17 +15,17 @@
  */
 package org.springframework.social.wunderlist.api;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.social.wunderlist.api.impl.Dates;
-import org.springframework.social.wunderlist.api.impl.json.WunderlistTaskDataSerializer;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-@JsonSerialize(using = WunderlistTaskDataSerializer.class)
 public class WunderlistTaskData {
 
     private long listId;
@@ -92,6 +92,26 @@ public class WunderlistTaskData {
     public WunderlistTaskData due(Date due) {
         this.due = Dates.safeCopy(due);
         return this;
+    }
+
+    public Map<String, Object> asMap() {
+        final Map<String, Object> map = new HashMap<String, Object>();
+        map.put("list_id", listId);
+        map.put("title", title);
+        map.put("completed", completed);
+        map.put("starred", starred);
+        if (assignedId != null) {
+            map.put("assignee_id", assignedId);
+        }
+        if (recurrence != null) {
+            map.put("recurrence_type", recurrence.getType().name().toLowerCase());
+            map.put("recurrence_count", recurrence.getCount());
+        }
+        if (due != null) {
+            map.put("due_date", new SimpleDateFormat("yyyy-MM-dd").format(due));
+        }
+
+        return map;
     }
 
 }

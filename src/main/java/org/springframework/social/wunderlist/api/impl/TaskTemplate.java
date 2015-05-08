@@ -68,6 +68,6 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     @Override
     public WunderlistTask createTask(WunderlistTaskData data) {
         requireAuthorization();
-        return restTemplate.postForObject(buildUri("tasks"), data, WunderlistTask.class);
+        return restTemplate.postForObject(buildUri("tasks"), data.asMap(), WunderlistTask.class);
     }
 }
