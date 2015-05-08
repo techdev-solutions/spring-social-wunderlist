@@ -47,8 +47,8 @@ class UserTemplate extends AbstractWunderlistOperations implements UserOperation
     }
 
     @Override
-    public List<WunderlistUser> getAccessibleUsersForList(int list) {
+    public List<WunderlistUser> getAccessibleUsersForList(long listId) {
         requireAuthorization();
-        return restTemplate.getForObject(buildUri("users", "list_id", String.valueOf(list)), WunderlistUserList.class);
+        return restTemplate.getForObject(buildUri("users", "list_id", String.valueOf(listId)), WunderlistUserList.class);
     }
 }

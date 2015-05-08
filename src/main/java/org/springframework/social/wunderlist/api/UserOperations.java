@@ -42,8 +42,8 @@ public interface UserOperations {
      * Retrieve all users the currently authenticated user can access,
      * restricted to the given list id
      *
-     * @param list the id of the list to retrieve the users for
+     * @param listId the id of the list to retrieve the users for
      * @return all accessible users
      */
-    List<WunderlistUser> getAccessibleUsersForList(int list);
+    List<WunderlistUser> getAccessibleUsersForList(long listId);
 }
