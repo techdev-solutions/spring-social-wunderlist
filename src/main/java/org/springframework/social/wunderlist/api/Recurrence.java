@@ -29,6 +29,9 @@ public class Recurrence {
     private final long count;
 
     public Recurrence(long count, Type type) {
+        if (type == null) {
+            throw new IllegalArgumentException("recurrence type must not be null");
+        }
         if (count < 1) {
             throw new IllegalArgumentException("recurrence count must be greater than 0");
         }
