@@ -45,7 +45,7 @@ class CreateTaskDataSerializer extends JsonSerializer<CreateTaskData> {
             generator.writeNumberField("assignee_id", data.getAssigneeId());
         }
         if (data.getRecurrence() != null) {
-            generator.writeStringField("recurrence_type", data.getRecurrence().getType().name().toLowerCase());
+            generator.writeStringField("recurrence_type", data.getRecurrence().getType().value());
             generator.writeNumberField("recurrence_count", data.getRecurrence().getCount());
         }
         if (data.getDueDate() != null) {

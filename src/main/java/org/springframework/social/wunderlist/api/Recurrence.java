@@ -24,7 +24,11 @@ import org.springframework.social.wunderlist.api.impl.Checks;
 public class Recurrence {
 
     public enum Type {
-        DAY, WEEK, MONTH, YEAR
+        DAY, WEEK, MONTH, YEAR;
+
+        public String value() {
+            return name().toLowerCase();
+        }
     }
 
     private final Type type;

@@ -101,7 +101,7 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     }
 
     private WunderlistTask removeProperty(long taskId, long revision, String property) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<String, Object>(2);
         map.put("revision", revision);
         map.put("remove", Collections.singletonList(property).toArray(new String[1]));
 
