@@ -52,6 +52,14 @@ public interface ListOperations {
     /**
      * Create a list
      *
+     * @param title the title of the new list
+     * @return the created list
+     */
+    WunderlistList createList(String title);
+
+    /**
+     * Create a list
+     *
      * @param data the data for the new list
      * @return the created list
      */

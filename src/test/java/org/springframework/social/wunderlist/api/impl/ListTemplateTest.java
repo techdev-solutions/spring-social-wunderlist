@@ -90,7 +90,22 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
     }
 
     @Test
-    public void shouldCreateList() {
+    public void shouldCreateListWithTitle() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
+            .andExpect(method(POST))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
+            .andExpect(jsonPath("$.title", is("a test list")))
+            .andRespond(with(HttpStatus.CREATED, jsonResource("list-created"), APPLICATION_JSON));
+
+        WunderlistList list = wunderlist.listOperations().createList("a test list");
+        assertNotNull(list);
+    }
+
+    @Test
+    public void shouldCreateListWithData() {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
             .andExpect(method(POST))

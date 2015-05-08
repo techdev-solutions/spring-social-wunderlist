@@ -60,6 +60,14 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
     }
 
     @Override
+    public WunderlistList createList(String title) {
+        requireAuthorization();
+        Checks.notNull(title, "title must not be null");
+
+        return createList(new CreateListData(title));
+    }
+
+    @Override
     public WunderlistList createList(CreateListData data) {
         requireAuthorization();
         Checks.notNull(data, "list data must not be null");
