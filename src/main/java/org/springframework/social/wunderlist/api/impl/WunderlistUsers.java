@@ -23,5 +23,5 @@ import java.util.ArrayList;
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-public class WunderlistUsers extends ArrayList<WunderlistUser> {
+class WunderlistUsers extends ArrayList<WunderlistUser> {
 }
