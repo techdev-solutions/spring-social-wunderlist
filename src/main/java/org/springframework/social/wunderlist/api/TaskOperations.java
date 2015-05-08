@@ -15,6 +15,9 @@
  */
 package org.springframework.social.wunderlist.api;
 
+import org.springframework.social.wunderlist.api.impl.CreateTaskData;
+import org.springframework.social.wunderlist.api.impl.UpdateTaskData;
+
 import java.util.List;
 
 /**
@@ -63,6 +66,14 @@ public interface TaskOperations {
      * @param data the data of the task to be created
      * @return the created task
      */
-    WunderlistTask createTask(WunderlistTaskData data);
+    WunderlistTask createTask(CreateTaskData data);
+
+    /**
+     * Update an existing task
+     *
+     * @param data the changed task data
+     * @return the updated task
+     */
+    WunderlistTask updateTask(UpdateTaskData data);
 
 }

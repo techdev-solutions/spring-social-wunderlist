@@ -15,9 +15,12 @@
  */
 package org.springframework.social.wunderlist.api.impl;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.social.wunderlist.api.TaskOperations;
 import org.springframework.social.wunderlist.api.WunderlistTask;
-import org.springframework.social.wunderlist.api.WunderlistTaskData;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -66,11 +69,27 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     }
 
     @Override
-    public WunderlistTask createTask(WunderlistTaskData data) {
+    public WunderlistTask createTask(CreateTaskData data) {
         requireAuthorization();
         if (data == null) {
             throw new IllegalArgumentException("task data must not be null");
         }
-        return restTemplate.postForObject(buildUri("tasks"), data.asMap(), WunderlistTask.class);
+        return restTemplate.postForObject(buildUri("tasks"), data, WunderlistTask.class);
+    }
+
+    @Override
+    public WunderlistTask updateTask(UpdateTaskData data) {
+        requireAuthorization();
+        if (data == null) {
+            throw new IllegalArgumentException("task data must not be null");
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/json;charset=UTF-8"));
+
+        HttpEntity<UpdateTaskData> request = new HttpEntity(data, headers);
+
+        HttpEntity<WunderlistTask> response = restTemplate.exchange(buildUri("tasks/" + data.getTaskId()), HttpMethod.PATCH, request, WunderlistTask.class);
+        return response.getBody();
     }
 }
