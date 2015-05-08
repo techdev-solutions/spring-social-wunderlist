@@ -49,7 +49,7 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     @Override
     public List<WunderlistTask> getTasks(long listId) {
         requireAuthorization();
-        return restTemplate.getForObject(buildUri("tasks", "list_id", String.valueOf(listId)), WunderlistTaskList.class);
+        return restTemplate.getForObject(buildUri("tasks", "list_id", String.valueOf(listId)), WunderlistTasks.class);
     }
 
     @Override
@@ -59,7 +59,7 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
         params.set("list_id", String.valueOf(listId));
         params.set("completed", String.valueOf(completed));
 
-        return restTemplate.getForObject(buildUri("tasks", params), WunderlistTaskList.class);
+        return restTemplate.getForObject(buildUri("tasks", params), WunderlistTasks.class);
     }
 
     @Override

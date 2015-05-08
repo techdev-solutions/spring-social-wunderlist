@@ -50,7 +50,7 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
     @Override
     public List<WunderlistList> getLists() {
         requireAuthorization();
-        return restTemplate.getForObject(buildUri("lists"), WunderlistListList.class);
+        return restTemplate.getForObject(buildUri("lists"), WunderlistLists.class);
     }
 
     @Override

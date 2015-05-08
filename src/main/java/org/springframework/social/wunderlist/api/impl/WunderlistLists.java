@@ -15,7 +15,7 @@
  */
 package org.springframework.social.wunderlist.api.impl;
 
-import org.springframework.social.wunderlist.api.WunderlistTask;
+import org.springframework.social.wunderlist.api.WunderlistList;
 
 import java.util.ArrayList;
 
@@ -23,5 +23,5 @@ import java.util.ArrayList;
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-public class WunderlistTaskList extends ArrayList<WunderlistTask> {
+public class WunderlistLists extends ArrayList<WunderlistList> {
 }
