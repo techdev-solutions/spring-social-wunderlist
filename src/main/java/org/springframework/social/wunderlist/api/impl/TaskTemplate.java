@@ -16,16 +16,17 @@
 package org.springframework.social.wunderlist.api.impl;
 
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.social.wunderlist.api.TaskOperations;
 import org.springframework.social.wunderlist.api.WunderlistTask;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Alexander Hanschke
@@ -81,10 +82,7 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
         requireAuthorization();
         Checks.notNull(data, "task data must not be null");
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType("application/json;charset=UTF-8"));
-
-        HttpEntity<UpdateTaskData> request = new HttpEntity(data, headers);
+        HttpEntity<UpdateTaskData> request = new HttpEntity(data, headers());
 
         HttpEntity<WunderlistTask> response = restTemplate.exchange(buildUri("tasks/" + data.getTaskId()), HttpMethod.PATCH, request, WunderlistTask.class);
         return response.getBody();
@@ -107,10 +105,7 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
         map.put("revision", revision);
         map.put("remove", Collections.singletonList(property).toArray(new String[1]));
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType("application/json;charset=UTF-8"));
-
-        HttpEntity request = new HttpEntity(map, headers);
+        HttpEntity request = new HttpEntity(map, headers());
 
         HttpEntity<WunderlistTask> reponse = restTemplate.exchange(buildUri("tasks/" + taskId), HttpMethod.PATCH, request, WunderlistTask.class);
         return reponse.getBody();

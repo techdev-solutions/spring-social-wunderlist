@@ -16,9 +16,7 @@
 package org.springframework.social.wunderlist.api.impl;
 
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.social.wunderlist.api.ListOperations;
 import org.springframework.social.wunderlist.api.WunderlistList;
 import org.springframework.social.wunderlist.api.WunderlistTasksCount;
@@ -84,14 +82,12 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
     @Override
     public WunderlistList publicizeList(long listId, boolean makePublic, long revision) {
         requireAuthorization();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType("application/json;charset=UTF-8"));
 
         Map<String, Object> params = new HashMap<String, Object>(2);
         params.put("public", makePublic);
         params.put("revision", revision);
 
-        HttpEntity request = new HttpEntity(params, headers);
+        HttpEntity request = new HttpEntity(params, headers());
 
         HttpEntity<WunderlistList> response = restTemplate.exchange(buildUri("lists/" + listId), HttpMethod.PATCH, request, WunderlistList.class);
         return response.getBody();
@@ -102,10 +98,7 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
         requireAuthorization();
         Checks.notNull(data, "list data must not be null");
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType("application/json;charset=UTF-8"));
-
-        HttpEntity<UpdateListData> request = new HttpEntity(data, headers);
+        HttpEntity<UpdateListData> request = new HttpEntity(data, headers());
 
         HttpEntity<WunderlistList> response = restTemplate.exchange(buildUri("lists/" + data.getListId()), HttpMethod.PATCH, request, WunderlistList.class);
         return response.getBody();

@@ -15,6 +15,8 @@
  */
 package org.springframework.social.wunderlist.api.impl;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.social.MissingAuthorizationException;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.util.LinkedMultiValueMap;
@@ -52,6 +54,13 @@ class AbstractWunderlistOperations {
 
     protected URI buildUri(String path, MultiValueMap<String, String> parameters) {
         return URIBuilder.fromUri(API_URL_BASE + path).queryParams(parameters).build();
+    }
+
+    protected HttpHeaders headers() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/json;charset=UTF-8"));
+
+        return headers;
     }
 
     private static final String API_URL_BASE = "https://a.wunderlist.com/api/v1/";
