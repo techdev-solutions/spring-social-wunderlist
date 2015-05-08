@@ -26,7 +26,7 @@ import java.io.IOException;
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-public class CreateListDataSerializer extends JsonSerializer<CreateListData> {
+class CreateListDataSerializer extends JsonSerializer<CreateListData> {
 
     @Override
     public void serialize(CreateListData data, JsonGenerator generator, SerializerProvider serializers) throws IOException {

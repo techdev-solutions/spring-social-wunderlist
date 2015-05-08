@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-public class UpdateTaskDataSerializer extends JsonSerializer<UpdateTaskData> {
+class UpdateTaskDataSerializer extends JsonSerializer<UpdateTaskData> {
 
     @Override
     public void serialize(UpdateTaskData data, JsonGenerator generator, SerializerProvider serializers) throws IOException {
