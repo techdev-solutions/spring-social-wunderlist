@@ -22,8 +22,14 @@ import org.springframework.web.client.DefaultResponseErrorHandler;
 import java.io.IOException;
 
 /**
+ * A {@link org.springframework.web.client.ResponseErrorHandler} responsible for handling responses
+ * which resulted in an error which has not been handled by any of the other handlers.
+ * It simply delegates handling to the {@link DefaultResponseErrorHandler} and wraps any
+ * exceptions into an {@link UncategorizedApiException}.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
+ * @see DelegatingErrorHandler
  */
 class GenericErrorHandler extends DefaultResponseErrorHandler {
 

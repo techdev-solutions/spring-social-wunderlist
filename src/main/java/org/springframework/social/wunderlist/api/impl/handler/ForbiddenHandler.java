@@ -22,8 +22,12 @@ import org.springframework.web.client.DefaultResponseErrorHandler;
 import java.io.IOException;
 
 /**
+ * A {@link org.springframework.web.client.ResponseErrorHandler} responsible for handling responses
+ * which resulted in an HTTP 403 (Forbidden).
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
+ * @see DelegatingErrorHandler
  */
 class ForbiddenHandler extends DefaultResponseErrorHandler {
 

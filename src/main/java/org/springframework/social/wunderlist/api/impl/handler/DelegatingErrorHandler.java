@@ -24,8 +24,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * The primary {@link org.springframework.web.client.ResponseErrorHandler} used for
+ * the library. To better handle individual errors, this component delegates error
+ * handling to individual handlers.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
+ *
+ * @see BadRequestHandler
+ * @see ConflictHandler
+ * @see ForbiddenHandler
+ * @see GenericErrorHandler
+ * @see InternalServerErrorHandler
+ * @see NotFoundHandler
+ * @see UnauthorizedHandler
+ * @see UnprocessableEntityHandler
  */
 public class DelegatingErrorHandler extends DefaultResponseErrorHandler {
 

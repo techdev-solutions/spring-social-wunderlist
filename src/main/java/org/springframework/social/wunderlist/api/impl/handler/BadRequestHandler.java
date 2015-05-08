@@ -23,8 +23,12 @@ import org.springframework.web.client.DefaultResponseErrorHandler;
 import java.io.IOException;
 
 /**
+ * A {@link org.springframework.web.client.ResponseErrorHandler} responsible for handling responses
+ * which resulted in an HTTP 400 (Bad Request).
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
+ * @see DelegatingErrorHandler
  */
 class BadRequestHandler extends DefaultResponseErrorHandler {
 
