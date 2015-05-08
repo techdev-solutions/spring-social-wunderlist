@@ -62,10 +62,7 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
     @Override
     public WunderlistList createList(CreateListData data) {
         requireAuthorization();
-
-        if (data == null) {
-            throw new IllegalArgumentException("list data must not be null");
-        }
+        Checks.notNull(data, "list data must not be null");
 
         return restTemplate.postForObject(buildUri("lists"), data, WunderlistList.class);
     }
@@ -95,9 +92,7 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
     @Override
     public WunderlistList updateList(UpdateListData data) {
         requireAuthorization();
-        if (data == null) {
-            throw new IllegalArgumentException("list data must not be null");
-        }
+        Checks.notNull(data, "list data must not be null");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/json;charset=UTF-8"));

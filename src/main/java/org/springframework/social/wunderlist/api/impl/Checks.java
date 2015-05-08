@@ -13,38 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.api;
-
-import org.springframework.social.wunderlist.api.impl.Checks;
+package org.springframework.social.wunderlist.api.impl;
 
 /**
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-public class Recurrence {
+public final class Checks {
 
-    public enum Type {
-        DAY, WEEK, MONTH, YEAR
-    }
+    private Checks() { }
 
-    private final Type type;
-    private final long count;
-
-    public Recurrence(long count, Type type) {
-        Checks.notNull(type, "recurrence type must not be null");
-        if (count < 1) {
-            throw new IllegalArgumentException("recurrence count must be greater than 0");
+    public static void notNull(Object reference, String message) {
+        if (reference == null) {
+            throw new IllegalArgumentException(message);
         }
-        this.type = type;
-        this.count = count;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public long getCount() {
-        return count;
     }
 
 }

@@ -23,7 +23,8 @@ import java.io.IOException;
 
 /**
  * A {@link org.springframework.web.client.ResponseErrorHandler} responsible for handling responses
- * which resulted in an HTTP 403 (Forbidden).
+ * which resulted in an HTTP 403 (Forbidden). Usually this handler will be invoked whenever
+ * the client is missing the authroization headers 'X-Client-ID' and 'X-Access-Token'.
  *
  * @author Alexander Hanschke
  * @since 1.0.0

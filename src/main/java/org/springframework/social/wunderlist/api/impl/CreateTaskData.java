@@ -56,9 +56,7 @@ public class CreateTaskData {
     }
 
     public CreateTaskData every(Recurrence recurrence) {
-        if (recurrence == null) {
-            throw new IllegalArgumentException("recurrence must not be null");
-        }
+        Checks.notNull(recurrence, "task data must not be null");
         this.recurrence = recurrence;
         return this;
     }

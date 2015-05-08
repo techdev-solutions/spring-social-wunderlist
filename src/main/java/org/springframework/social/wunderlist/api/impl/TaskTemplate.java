@@ -71,18 +71,15 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     @Override
     public WunderlistTask createTask(CreateTaskData data) {
         requireAuthorization();
-        if (data == null) {
-            throw new IllegalArgumentException("task data must not be null");
-        }
+        Checks.notNull(data, "task data must not be null");
+
         return restTemplate.postForObject(buildUri("tasks"), data, WunderlistTask.class);
     }
 
     @Override
     public WunderlistTask updateTask(UpdateTaskData data) {
         requireAuthorization();
-        if (data == null) {
-            throw new IllegalArgumentException("task data must not be null");
-        }
+        Checks.notNull(data, "task data must not be null");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/json;charset=UTF-8"));

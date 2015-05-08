@@ -23,7 +23,7 @@ import java.io.IOException;
 
 /**
  * A {@link org.springframework.web.client.ResponseErrorHandler} responsible for handling responses
- * which resulted in an HTTP 409 (Conflict). This most likely will happen whenever a
+ * which resulted in an HTTP 409 (Conflict). Usually this handler will be invoked whenever a
  * revision sent by the client doesn't match the revision on the Wunderlist server.
  *
  * @author Alexander Hanschke
