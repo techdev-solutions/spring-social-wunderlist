@@ -77,6 +77,17 @@ public interface TaskOperations {
     WunderlistTask updateTask(UpdateTaskData data);
 
     /**
+     * Star an existing task
+     *
+     * @param taskId the od of the task to be starred
+     * @param revision the revision of the task (note that this must match with the current
+     * revision of the task, otherwise a {@link ConflictException} may occur)
+     * @return the starred task
+     * @see #updateTask(UpdateTaskData)
+     */
+    WunderlistTask starTask(long taskId, long revision);
+
+    /**
      * Remove the assignee from an existing task
      *
      * @param taskId the id of the task to be changed

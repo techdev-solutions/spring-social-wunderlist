@@ -194,5 +194,21 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
         assertNotNull(task);
     }
 
+    @Test
+    public void shouldStarTask() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/tasks/666"))
+            .andExpect(method(PATCH))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
+            .andExpect(jsonPath("$.revision", is(10)))
+            .andExpect(jsonPath("$.starred", is(true)))
+            .andRespond(withSuccess(jsonResource("task-created"), APPLICATION_JSON));
+
+        WunderlistTask task = wunderlist.taskOperations().starTask(666, 10);
+        assertNotNull(task);
+    }
+
 
 }
