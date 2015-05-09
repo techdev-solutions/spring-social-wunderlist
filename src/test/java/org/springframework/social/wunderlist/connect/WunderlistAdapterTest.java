@@ -15,8 +15,12 @@
  */
 package org.springframework.social.wunderlist.connect;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.wunderlist.api.UserOperations;
 import org.springframework.social.wunderlist.api.Wunderlist;
@@ -29,17 +33,24 @@ import static org.junit.Assert.assertThat;
 /**
  * @author Alexander Hanschke
  */
+@RunWith(MockitoJUnitRunner.class)
 public class WunderlistAdapterTest {
+
+    @Mock
+    private UserOperations userOperations;
+
+    @Mock
+    private Wunderlist wunderlist;
 
     private WunderlistAdapter adapter = new WunderlistAdapter();
 
-    private Wunderlist wunderlist = Mockito.mock(Wunderlist.class);
+    @Before
+    public void setup() {
+        Mockito.when(wunderlist.userOperations()).thenReturn(userOperations);
+    }
 
     @Test
     public void shouldFetchProfile() {
-        UserOperations userOperations = Mockito.mock(UserOperations.class);
-        Mockito.when(wunderlist.userOperations()).thenReturn(userOperations);
-
         WunderlistUser user = new WunderlistUser();
         user.setName("Alexander Hanschke");
         user.setEmail("alexander.hanschke@techdev.de");
@@ -53,18 +64,13 @@ public class WunderlistAdapterTest {
 
     @Test
     public void shouldFailTestWhenGetUserThrowsAnException() throws Exception {
-        UserOperations userOperations = Mockito.mock(UserOperations.class);
-        Mockito.when(wunderlist.userOperations()).thenReturn(userOperations);
-        Mockito.when(userOperations.getUser()).thenThrow((Class < ?extends Throwable>)Exception.class);
+        Mockito.when(userOperations.getUser()).thenThrow(Exception.class);
 
         assertThat(adapter.test(wunderlist), is(false));
     }
 
     @Test
-    public void shouldSuccessTestWhenGetUserDoesNotThrowAnException() throws Exception {
-        UserOperations userOperations = Mockito.mock(UserOperations.class);
-        Mockito.when(wunderlist.userOperations()).thenReturn(userOperations);
-
+    public void shouldSucceedTestWhenGetUserDoesNotThrowAnException() throws Exception {
         assertThat(adapter.test(wunderlist), is(true));
     }
 }
