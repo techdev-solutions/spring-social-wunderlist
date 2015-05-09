@@ -20,9 +20,9 @@ import org.springframework.social.wunderlist.api.WunderlistList;
 import org.springframework.social.wunderlist.api.WunderlistTask;
 import org.springframework.social.wunderlist.api.WunderlistTasksCount;
 import org.springframework.social.wunderlist.api.WunderlistUser;
-import org.springframework.social.wunderlist.api.impl.CreateListData;
-import org.springframework.social.wunderlist.api.impl.CreateTaskData;
-import org.springframework.social.wunderlist.api.impl.UpdateTaskData;
+import org.springframework.social.wunderlist.api.CreateListData;
+import org.springframework.social.wunderlist.api.CreateTaskData;
+import org.springframework.social.wunderlist.api.UpdateTaskData;
 
 /**
  * @author Alexander Hanschke

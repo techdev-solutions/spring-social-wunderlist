@@ -13,18 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.api.impl;
+package org.springframework.social.wunderlist.api;
 
 /**
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-public class CreateListData {
+public class UpdateListData {
 
-    private final String title;
+    private final long listId;
+    private final long revision;
 
-    public CreateListData(String title) {
+    private String title;
+
+    public UpdateListData(long listId, long revision) {
+        this.listId = listId;
+        this.revision = revision;
+    }
+
+    public UpdateListData withTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    public long getListId() {
+        return listId;
+    }
+
+    public long getRevision() {
+        return revision;
     }
 
     public String getTitle() {

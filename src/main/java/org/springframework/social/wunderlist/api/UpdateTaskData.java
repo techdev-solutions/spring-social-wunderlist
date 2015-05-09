@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.api.impl;
+package org.springframework.social.wunderlist.api;
 
-import org.springframework.social.wunderlist.api.Recurrence;
+import org.springframework.social.wunderlist.api.impl.Dates;
 import org.springframework.util.Assert;
 
 import java.util.Date;

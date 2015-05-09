@@ -18,7 +18,7 @@ package org.springframework.social.wunderlist.api.impl.json;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.springframework.social.wunderlist.api.impl.CreateListData;
+import org.springframework.social.wunderlist.api.CreateListData;
 
 import java.io.IOException;
 

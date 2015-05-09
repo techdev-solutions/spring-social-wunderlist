@@ -15,9 +15,6 @@
  */
 package org.springframework.social.wunderlist.api;
 
-import org.springframework.social.wunderlist.api.impl.CreateListData;
-import org.springframework.social.wunderlist.api.impl.UpdateListData;
-
 import java.util.List;
 
 /**

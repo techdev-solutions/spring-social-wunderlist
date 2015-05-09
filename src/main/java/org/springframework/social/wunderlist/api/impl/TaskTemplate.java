@@ -17,7 +17,9 @@ package org.springframework.social.wunderlist.api.impl;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.social.wunderlist.api.CreateTaskData;
 import org.springframework.social.wunderlist.api.TaskOperations;
+import org.springframework.social.wunderlist.api.UpdateTaskData;
 import org.springframework.social.wunderlist.api.WunderlistTask;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
@@ -57,7 +59,7 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     @Override
     public List<WunderlistTask> getCompletedTasks(long listId, boolean completed) {
         requireAuthorization();
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>(2);
         params.set("list_id", String.valueOf(listId));
         params.set("completed", String.valueOf(completed));
 
@@ -128,7 +130,7 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
 
         HttpEntity request = new HttpEntity(map, headers());
 
-        HttpEntity<WunderlistTask> reponse = restTemplate.exchange(buildUri("tasks/" + taskId), HttpMethod.PATCH, request, WunderlistTask.class);
-        return reponse.getBody();
+        HttpEntity<WunderlistTask> response = restTemplate.exchange(buildUri("tasks/" + taskId), HttpMethod.PATCH, request, WunderlistTask.class);
+        return response.getBody();
     }
 }

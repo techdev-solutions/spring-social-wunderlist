@@ -17,7 +17,9 @@ package org.springframework.social.wunderlist.api.impl;
 
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
+import org.springframework.social.wunderlist.api.CreateTaskData;
 import org.springframework.social.wunderlist.api.Recurrence;
+import org.springframework.social.wunderlist.api.UpdateTaskData;
 import org.springframework.social.wunderlist.api.WunderlistTask;
 
 import java.text.SimpleDateFormat;

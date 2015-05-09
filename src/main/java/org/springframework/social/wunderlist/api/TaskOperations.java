@@ -15,9 +15,6 @@
  */
 package org.springframework.social.wunderlist.api;
 
-import org.springframework.social.wunderlist.api.impl.CreateTaskData;
-import org.springframework.social.wunderlist.api.impl.UpdateTaskData;
-
 import java.util.List;
 
 /**

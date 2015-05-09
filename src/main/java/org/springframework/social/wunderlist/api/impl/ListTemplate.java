@@ -17,9 +17,7 @@ package org.springframework.social.wunderlist.api.impl;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.social.wunderlist.api.ListOperations;
-import org.springframework.social.wunderlist.api.WunderlistList;
-import org.springframework.social.wunderlist.api.WunderlistTasksCount;
+import org.springframework.social.wunderlist.api.*;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
@@ -60,9 +58,6 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
 
     @Override
     public WunderlistList createList(String title) {
-        requireAuthorization();
-        Assert.notNull(title, "title must not be null");
-
         return createList(new CreateListData(title));
     }
 

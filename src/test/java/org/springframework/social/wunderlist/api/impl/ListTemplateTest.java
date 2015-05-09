@@ -17,9 +17,7 @@ package org.springframework.social.wunderlist.api.impl;
 
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
-import org.springframework.social.wunderlist.api.ValidationException;
-import org.springframework.social.wunderlist.api.WunderlistList;
-import org.springframework.social.wunderlist.api.WunderlistTasksCount;
+import org.springframework.social.wunderlist.api.*;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

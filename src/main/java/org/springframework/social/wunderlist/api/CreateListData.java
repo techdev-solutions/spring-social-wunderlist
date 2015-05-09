@@ -13,37 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.api.impl;
+package org.springframework.social.wunderlist.api;
+
+import org.springframework.util.Assert;
 
 /**
+ * Represents all the data used to create a new {@link WunderlistList}.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-public class UpdateListData {
+public class CreateListData {
 
-    private final long listId;
-    private final long revision;
+    private final String title;
 
-    private String title;
-
-    public UpdateListData(long listId, long revision) {
-        this.listId = listId;
-        this.revision = revision;
-    }
-
-    public UpdateListData withTitle(String title) {
+    /**
+     * @param title the title of the new list.
+     */
+    public CreateListData(String title) {
+        Assert.notNull(title, "title must not be null");
         this.title = title;
-        return this;
     }
 
-    public long getListId() {
-        return listId;
-    }
-
-    public long getRevision() {
-        return revision;
-    }
-
+    /**
+     * @return the title of the new list.
+     */
     public String getTitle() {
         return title;
     }
