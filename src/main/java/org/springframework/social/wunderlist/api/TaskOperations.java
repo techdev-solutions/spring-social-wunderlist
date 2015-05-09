@@ -99,6 +99,17 @@ public interface TaskOperations {
     WunderlistTask unstarTask(long taskId, long revision);
 
     /**
+     * Complete an existing task
+     *
+     * @param taskId the id of the task to be completed
+     * @param revision the revision of the task (note that this must match with the current
+     * revision of the task, otherwise a {@link ConflictException} may occur)
+     * @return the completed task
+     * @see #updateTask(UpdateTaskData)
+     */
+    WunderlistTask completeTask(long taskId, long revision);
+
+    /**
      * Remove the assignee from an existing task
      *
      * @param taskId the id of the task to be changed

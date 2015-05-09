@@ -88,6 +88,11 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     }
 
     @Override
+    public WunderlistTask completeTask(long taskId, long revision) {
+        return updateTask(new UpdateTaskData(taskId, revision).completed(true));
+    }
+
+    @Override
     public WunderlistTask updateTask(UpdateTaskData data) {
         requireAuthorization();
         Checks.notNull(data, "task data must not be null");
