@@ -127,7 +127,8 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.recurrence_count", is(2)))
             .andExpect(jsonPath("$.due_date", is("2020-12-24")))
             .andExpect(jsonPath("$.starred", is(true)))
-            .andRespond(with(HttpStatus.CREATED, jsonResource("task-created"), APPLICATION_JSON));
+            .andExpect(jsonPath("$.remove").doesNotExist())
+            .andRespond(with(HttpStatus.CREATED, jsonResource("task"), APPLICATION_JSON));
 
         CreateTaskData data = new CreateTaskData(666, "test task")
             .assignTo(1000)
@@ -151,7 +152,13 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.revision", is(10)))
             .andExpect(jsonPath("$.assignee_id", is(2000)))
             .andExpect(jsonPath("$.completed", is(true)))
-            .andRespond(withSuccess(jsonResource("task-created"), APPLICATION_JSON));
+            .andExpect(jsonPath("$.title", is("an updated task")))
+            .andExpect(jsonPath("$.starred").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_type").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_count").doesNotExist())
+            .andExpect(jsonPath("$.due_date").doesNotExist())
+            .andExpect(jsonPath("$.remove").doesNotExist())
+            .andRespond(withSuccess(jsonResource("task"), APPLICATION_JSON));
 
         UpdateTaskData data = new UpdateTaskData(666, 10)
             .assignTo(2000)
@@ -172,7 +179,14 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.revision", is(10)))
             .andExpect(jsonPath("$.remove[0]", is("assignee_id")))
-            .andRespond(withSuccess(jsonResource("task-created"), APPLICATION_JSON));
+            .andExpect(jsonPath("$.starred").doesNotExist())
+            .andExpect(jsonPath("$.completed").doesNotExist())
+            .andExpect(jsonPath("$.title").doesNotExist())
+            .andExpect(jsonPath("$.assignee_id").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_type").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_count").doesNotExist())
+            .andExpect(jsonPath("$.due_date").doesNotExist())
+            .andRespond(withSuccess(jsonResource("task"), APPLICATION_JSON));
 
         WunderlistTask task = wunderlist.taskOperations().removeAssignee(666, 10);
         assertNotNull(task);
@@ -188,7 +202,14 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.revision", is(10)))
             .andExpect(jsonPath("$.remove[0]", is("due_date")))
-            .andRespond(withSuccess(jsonResource("task-created"), APPLICATION_JSON));
+            .andExpect(jsonPath("$.starred").doesNotExist())
+            .andExpect(jsonPath("$.completed").doesNotExist())
+            .andExpect(jsonPath("$.title").doesNotExist())
+            .andExpect(jsonPath("$.assignee_id").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_type").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_count").doesNotExist())
+            .andExpect(jsonPath("$.due_date").doesNotExist())
+            .andRespond(withSuccess(jsonResource("task"), APPLICATION_JSON));
 
         WunderlistTask task = wunderlist.taskOperations().removeDueDate(666, 10);
         assertNotNull(task);
@@ -204,7 +225,14 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.revision", is(10)))
             .andExpect(jsonPath("$.starred", is(true)))
-            .andRespond(withSuccess(jsonResource("task-created"), APPLICATION_JSON));
+            .andExpect(jsonPath("$.completed").doesNotExist())
+            .andExpect(jsonPath("$.title").doesNotExist())
+            .andExpect(jsonPath("$.assignee_id").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_type").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_count").doesNotExist())
+            .andExpect(jsonPath("$.due_date").doesNotExist())
+            .andExpect(jsonPath("$.remove").doesNotExist())
+            .andRespond(withSuccess(jsonResource("task"), APPLICATION_JSON));
 
         WunderlistTask task = wunderlist.taskOperations().starTask(666, 10);
         assertNotNull(task);
@@ -220,7 +248,14 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.revision", is(10)))
             .andExpect(jsonPath("$.starred", is(false)))
-            .andRespond(withSuccess(jsonResource("task-created"), APPLICATION_JSON));
+            .andExpect(jsonPath("$.completed").doesNotExist())
+            .andExpect(jsonPath("$.title").doesNotExist())
+            .andExpect(jsonPath("$.assignee_id").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_type").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_count").doesNotExist())
+            .andExpect(jsonPath("$.due_date").doesNotExist())
+            .andExpect(jsonPath("$.remove").doesNotExist())
+            .andRespond(withSuccess(jsonResource("task"), APPLICATION_JSON));
 
         WunderlistTask task = wunderlist.taskOperations().unstarTask(666, 10);
         assertNotNull(task);
@@ -229,14 +264,21 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
     @Test
     public void shouldCompleteTask() {
         server
-                .expect(requestTo("https://a.wunderlist.com/api/v1/tasks/666"))
-                .andExpect(method(PATCH))
-                .andExpect(header("X-Client-ID", "CLIENT_ID"))
-                .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
-                .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.revision", is(10)))
-                .andExpect(jsonPath("$.completed", is(true)))
-                .andRespond(withSuccess(jsonResource("task-created"), APPLICATION_JSON));
+            .expect(requestTo("https://a.wunderlist.com/api/v1/tasks/666"))
+            .andExpect(method(PATCH))
+            .andExpect(header("X-Client-ID", "CLIENT_ID"))
+            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
+            .andExpect(jsonPath("$.revision", is(10)))
+            .andExpect(jsonPath("$.completed", is(true)))
+            .andExpect(jsonPath("$.starred").doesNotExist())
+            .andExpect(jsonPath("$.title").doesNotExist())
+            .andExpect(jsonPath("$.assignee_id").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_type").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_count").doesNotExist())
+            .andExpect(jsonPath("$.due_date").doesNotExist())
+            .andExpect(jsonPath("$.remove").doesNotExist())
+            .andRespond(withSuccess(jsonResource("task"), APPLICATION_JSON));
 
         WunderlistTask task = wunderlist.taskOperations().completeTask(666, 10);
         assertNotNull(task);
@@ -252,7 +294,14 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.revision", is(10)))
             .andExpect(jsonPath("$.completed", is(false)))
-            .andRespond(withSuccess(jsonResource("task-created"), APPLICATION_JSON));
+            .andExpect(jsonPath("$.starred").doesNotExist())
+            .andExpect(jsonPath("$.title").doesNotExist())
+            .andExpect(jsonPath("$.assignee_id").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_type").doesNotExist())
+            .andExpect(jsonPath("$.recurrence_count").doesNotExist())
+            .andExpect(jsonPath("$.due_date").doesNotExist())
+            .andExpect(jsonPath("$.remove").doesNotExist())
+            .andRespond(withSuccess(jsonResource("task"), APPLICATION_JSON));
 
         WunderlistTask task = wunderlist.taskOperations().uncompleteTask(666, 10);
         assertNotNull(task);
