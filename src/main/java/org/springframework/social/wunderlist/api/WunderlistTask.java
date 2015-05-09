@@ -15,8 +15,6 @@
  */
 package org.springframework.social.wunderlist.api;
 
-import org.springframework.social.wunderlist.api.impl.Dates;
-
 import java.util.Date;
 
 /**

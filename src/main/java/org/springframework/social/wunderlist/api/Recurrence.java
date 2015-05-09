@@ -18,11 +18,23 @@ package org.springframework.social.wunderlist.api;
 import org.springframework.util.Assert;
 
 /**
+ * Represents the recurrence of a task, i.e. 'every 2 weeks'.
+ * There are pre-defined recurrences for {@link #DAILY}, {@link #WEEKLY}, {@link #BIWEEKLY}
+ * and {@link #MONTHLY}.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */
 public class Recurrence {
 
+    public static final Recurrence DAILY    = new Recurrence(1, Type.DAY);
+    public static final Recurrence WEEKLY   = new Recurrence(1, Type.WEEK);
+    public static final Recurrence BIWEEKLY = new Recurrence(2, Type.WEEK);
+    public static final Recurrence MONTHLY  = new Recurrence(1, Type.MONTH);
+
+    /**
+     * Represents the supported recurrence types.
+     */
     public enum Type {
         DAY, WEEK, MONTH, YEAR;
 
@@ -34,6 +46,10 @@ public class Recurrence {
     private final Type type;
     private final long count;
 
+    /**
+     * @param count the recurrence count.
+     * @param type the recurrence type, i.e. day or week.
+     */
     public Recurrence(long count, Type type) {
         Assert.notNull(type, "recurrence type must not be null");
         if (count < 1) {
@@ -43,10 +59,16 @@ public class Recurrence {
         this.count = count;
     }
 
+    /**
+     * @return the recurrence type.
+     */
     public Type getType() {
         return type;
     }
 
+    /**
+     * @return the recurrence count.
+     */
     public long getCount() {
         return count;
     }

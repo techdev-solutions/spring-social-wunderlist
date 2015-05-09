@@ -15,7 +15,6 @@
  */
 package org.springframework.social.wunderlist.api;
 
-import org.springframework.social.wunderlist.api.impl.Dates;
 import org.springframework.util.Assert;
 
 import java.util.Date;

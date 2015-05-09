@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.api.impl;
+package org.springframework.social.wunderlist.api;
 
 import java.util.Date;
 
 /**
+ * Helper class for handling {@link Date} types.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */
@@ -25,6 +27,12 @@ public final class Dates {
 
     private Dates() { }
 
+    /**
+     * Creates a new date based on a given date.
+     *
+     * @param date the date to copy.
+     * @return a new data or {@code null} if the given date was null.
+     */
     public static Date safeCopy(Date date) {
         return date == null ? null : new Date(date.getTime());
     }
