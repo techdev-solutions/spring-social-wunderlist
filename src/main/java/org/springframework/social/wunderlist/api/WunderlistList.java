@@ -20,6 +20,8 @@ import org.springframework.social.wunderlist.api.impl.Dates;
 import java.util.Date;
 
 /**
+ * Represents a list.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */
@@ -32,26 +34,44 @@ public class WunderlistList {
     private String type;
     private Long revision;
 
+    /**
+     * @return the id of the list.
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * @return the date the list has been created.
+     */
     public Date getCreatedAt() {
         return Dates.safeCopy(createdAt);
     }
 
+    /**
+     * @return the title of the list.
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * @return the list type of the list (usually 'list').
+     */
     public String getListType() {
         return listType;
     }
 
+    /**
+     * @return the type of the list (usually 'list'):
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * @return the revision of the list.
+     */
     public Long getRevision() {
         return revision;
     }

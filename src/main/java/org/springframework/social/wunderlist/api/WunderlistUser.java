@@ -20,6 +20,8 @@ import org.springframework.social.wunderlist.api.impl.Dates;
 import java.util.Date;
 
 /**
+ * Represents a Wunderlist user.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */
@@ -31,6 +33,9 @@ public class WunderlistUser {
     private Long revision;
     private Date createdAt;
 
+    /**
+     * @return the user's id.
+     */
     public Long getId() {
         return id;
     }
@@ -39,6 +44,9 @@ public class WunderlistUser {
         this.name = name;
     }
 
+    /**
+     * @return the user's real name.
+     */
     public String getName() {
         return name;
     }
@@ -47,6 +55,9 @@ public class WunderlistUser {
         this.email = email;
     }
 
+    /**
+     * @return the user's email address.
+     */
     public String getEmail() {
         return email;
     }
@@ -55,6 +66,9 @@ public class WunderlistUser {
         return revision;
     }
 
+    /**
+     * @return the date the user has been created.
+     */
     public Date getCreatedAt() {
         return Dates.safeCopy(createdAt);
     }

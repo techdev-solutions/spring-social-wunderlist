@@ -16,6 +16,8 @@
 package org.springframework.social.wunderlist.api;
 
 /**
+ * Represents the number of completed and uncompleted tasks for a given list.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */
@@ -26,18 +28,30 @@ public class WunderlistTasksCount {
     private Long uncompletedCount;
     private String type;
 
+    /**
+     * @return the id of the {@link WunderlistList} the count is based on.
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * @return the number of completed tasks.
+     */
     public Long getCompletedCount() {
         return completedCount;
     }
 
+    /**
+     * @return the number of uncompleted tasks.
+     */
     public Long getUncompletedCount() {
         return uncompletedCount;
     }
 
+    /**
+     * @return the type of the count (usually 'tasks_count').
+     */
     public String getType() {
         return type;
     }

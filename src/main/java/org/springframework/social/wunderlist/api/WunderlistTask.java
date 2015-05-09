@@ -20,6 +20,8 @@ import org.springframework.social.wunderlist.api.impl.Dates;
 import java.util.Date;
 
 /**
+ * Represents a task.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */
@@ -36,42 +38,72 @@ public class WunderlistTask {
     private boolean starred;
     private String title;
 
+    /**
+     * @return the id of the task.
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * @return the id of the {@link WunderlistUser} the task is assigned to.
+     */
     public Long getAssigneeId() {
         return assigneeId;
     }
 
+    /**
+     * @return the id of the {@link WunderlistUser} the task has been assigned by.
+     */
     public Long getAssignerId() {
         return assignerId;
     }
 
+    /**
+     * @return the date the task has been created.
+     */
     public Date getCreatedAt() {
         return Dates.safeCopy(createdAt);
     }
 
+    /**
+     * @return the id of the {@link WunderlistUser} the task has been created by.
+     */
     public Long getCreatedById() {
         return createdById;
     }
 
+    /**
+     * @return the date the task is due.
+     */
     public Date getDueDate() {
         return Dates.safeCopy(dueDate);
     }
 
+    /**
+     * @return the id of the {@link WunderlistList} the task belongs to.
+     */
     public Long getListId() {
         return listId;
     }
 
+    /**
+     * @return the revision of the task.
+     */
     public Long getRevision() {
         return revision;
     }
 
+    /**
+     * @return whether the task is starred or not.
+     */
     public boolean isStarred() {
         return starred;
     }
 
+    /**
+     * @return the title of the task.
+     */
     public String getTitle() {
         return title;
     }
