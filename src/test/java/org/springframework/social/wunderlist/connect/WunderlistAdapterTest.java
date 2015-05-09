@@ -22,7 +22,9 @@ import org.springframework.social.wunderlist.api.UserOperations;
 import org.springframework.social.wunderlist.api.Wunderlist;
 import org.springframework.social.wunderlist.api.WunderlistUser;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Alexander Hanschke
@@ -49,5 +51,20 @@ public class WunderlistAdapterTest {
         assertEquals("alexander.hanschke@techdev.de", profile.getEmail());
     }
 
+    @Test
+    public void shouldFailTestWhenGetUserThrowsAnException() throws Exception {
+        UserOperations userOperations = Mockito.mock(UserOperations.class);
+        Mockito.when(wunderlist.userOperations()).thenReturn(userOperations);
+        Mockito.when(userOperations.getUser()).thenThrow((Class < ?extends Throwable>)Exception.class);
 
+        assertThat(adapter.test(wunderlist), is(false));
+    }
+
+    @Test
+    public void shouldSuccessTestWhenGetUserDoesNotThrowAnException() throws Exception {
+        UserOperations userOperations = Mockito.mock(UserOperations.class);
+        Mockito.when(wunderlist.userOperations()).thenReturn(userOperations);
+
+        assertThat(adapter.test(wunderlist), is(true));
+    }
 }
