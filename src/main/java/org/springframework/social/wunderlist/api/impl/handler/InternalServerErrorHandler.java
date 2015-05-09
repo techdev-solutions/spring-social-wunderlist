@@ -17,7 +17,6 @@ package org.springframework.social.wunderlist.api.impl.handler;
 
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.social.InternalServerErrorException;
-import org.springframework.social.wunderlist.api.impl.ErrorResponseWrapper;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import java.io.IOException;

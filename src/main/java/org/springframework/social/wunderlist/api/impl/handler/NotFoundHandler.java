@@ -18,7 +18,6 @@ package org.springframework.social.wunderlist.api.impl.handler;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.social.ResourceNotFoundException;
 import org.springframework.social.wunderlist.api.NotEnoughPermissionsException;
-import org.springframework.social.wunderlist.api.impl.ErrorResponseWrapper;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import java.io.IOException;

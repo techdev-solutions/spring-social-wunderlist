@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.api.impl;
+package org.springframework.social.wunderlist.api.impl.handler;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -26,7 +26,7 @@ import java.io.IOException;
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-public class ErrorResponseWrapper {
+class ErrorResponseWrapper {
 
     private JsonNode node;
 
