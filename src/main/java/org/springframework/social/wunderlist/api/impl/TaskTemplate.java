@@ -19,6 +19,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.social.wunderlist.api.TaskOperations;
 import org.springframework.social.wunderlist.api.WunderlistTask;
+import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -72,7 +73,7 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     @Override
     public WunderlistTask createTask(CreateTaskData data) {
         requireAuthorization();
-        Checks.notNull(data, "task data must not be null");
+        Assert.notNull(data, "task data must not be null");
 
         return restTemplate.postForObject(buildUri("tasks"), data, WunderlistTask.class);
     }
@@ -100,7 +101,7 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     @Override
     public WunderlistTask updateTask(UpdateTaskData data) {
         requireAuthorization();
-        Checks.notNull(data, "task data must not be null");
+        Assert.notNull(data, "task data must not be null");
 
         HttpEntity<UpdateTaskData> request = new HttpEntity(data, headers());
 

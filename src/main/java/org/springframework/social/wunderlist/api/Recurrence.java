@@ -15,7 +15,7 @@
  */
 package org.springframework.social.wunderlist.api;
 
-import org.springframework.social.wunderlist.api.impl.Checks;
+import org.springframework.util.Assert;
 
 /**
  * @author Alexander Hanschke
@@ -35,7 +35,7 @@ public class Recurrence {
     private final long count;
 
     public Recurrence(long count, Type type) {
-        Checks.notNull(type, "recurrence type must not be null");
+        Assert.notNull(type, "recurrence type must not be null");
         if (count < 1) {
             throw new IllegalArgumentException("recurrence count must be greater than 0");
         }

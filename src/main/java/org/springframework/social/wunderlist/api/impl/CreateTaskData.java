@@ -16,6 +16,7 @@
 package org.springframework.social.wunderlist.api.impl;
 
 import org.springframework.social.wunderlist.api.Recurrence;
+import org.springframework.util.Assert;
 
 import java.util.Date;
 
@@ -56,7 +57,7 @@ public class CreateTaskData {
     }
 
     public CreateTaskData every(Recurrence recurrence) {
-        Checks.notNull(recurrence, "task data must not be null");
+        Assert.notNull(recurrence, "task data must not be null");
         this.recurrence = recurrence;
         return this;
     }
