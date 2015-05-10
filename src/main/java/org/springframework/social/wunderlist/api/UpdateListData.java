@@ -26,6 +26,8 @@ public class UpdateListData {
 
     private String title;
 
+    private Boolean published;
+
     public UpdateListData(long listId, long revision) {
         this.listId = listId;
         this.revision = revision;
@@ -33,6 +35,11 @@ public class UpdateListData {
 
     public UpdateListData withTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    public UpdateListData published(boolean published) {
+        this.published = Boolean.valueOf(published);
         return this;
     }
 
@@ -46,6 +53,10 @@ public class UpdateListData {
 
     public String getTitle() {
         return title;
+    }
+
+    public Boolean isPublished() {
+        return published;
     }
 
 }

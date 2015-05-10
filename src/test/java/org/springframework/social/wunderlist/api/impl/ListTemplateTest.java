@@ -165,7 +165,22 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.public", is(true)))
             .andRespond(withSuccess(jsonResource("list-changed"), APPLICATION_JSON));
 
-        WunderlistList list = wunderlist.listOperations().publicizeList(666, true, 10);
+        WunderlistList list = wunderlist.listOperations().publishList(666, 10);
+        assertNotNull(list);
+    }
+
+    @Test
+    public void shouldMakeListPrivate() {
+        server
+            .expect(requestTo("https://a.wunderlist.com/api/v1/lists/666"))
+            .andExpect(method(PATCH))
+            .andExpect(authHeaders())
+            .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
+            .andExpect(jsonPath("$.revision", is(10)))
+            .andExpect(jsonPath("$.public", is(false)))
+            .andRespond(withSuccess(jsonResource("list-changed"), APPLICATION_JSON));
+
+        WunderlistList list = wunderlist.listOperations().unpublishList(666, 10);
         assertNotNull(list);
     }
 

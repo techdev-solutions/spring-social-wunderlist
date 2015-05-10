@@ -16,13 +16,7 @@
 package org.springframework.social.wunderlist.api.impl.json;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.springframework.social.wunderlist.api.WunderlistList;
-import org.springframework.social.wunderlist.api.WunderlistTask;
-import org.springframework.social.wunderlist.api.WunderlistTasksCount;
-import org.springframework.social.wunderlist.api.WunderlistUser;
-import org.springframework.social.wunderlist.api.CreateListData;
-import org.springframework.social.wunderlist.api.CreateTaskData;
-import org.springframework.social.wunderlist.api.UpdateTaskData;
+import org.springframework.social.wunderlist.api.*;
 
 /**
  * @author Alexander Hanschke
@@ -37,6 +31,7 @@ public class WunderlistModule extends SimpleModule {
 
     private void init() {
         addSerializer(CreateListData.class, new CreateListDataSerializer());
+        addSerializer(UpdateListData.class, new UpdateListDataSerializer());
         addSerializer(CreateTaskData.class, new CreateTaskDataSerializer());
         addSerializer(UpdateTaskData.class, new UpdateTaskDataSerializer());
 

@@ -72,15 +72,24 @@ public interface ListOperations {
     void deleteList(long listId, long revision);
 
     /**
-     * Make a list public
+     * Make a list public.
      *
-     * @param listId the id of the list to be made public (or private)
-     * @param makePublic flag to indicate whether the list is made public or private
+     * @param listId the id of the list to be made public.
      * @param revision the revision of the list (note that this must match with the current
-     * revision of the list, otherwise a {@link ConflictException} may occur)
-     * @return the changed list
+     * revision of the list, otherwise a {@link ConflictException} may occur).
+     * @return the updated list.
      */
-    WunderlistList publicizeList(long listId, boolean makePublic, long revision);
+    WunderlistList publishList(long listId, long revision);
+
+    /**
+     * Make a list private.
+     *
+     * @param listId the id of the list to be made private.
+     * @param revision the revision of the list (note that this must match with the current
+     * revision of the list, otherwise a {@link ConflictException} may occur).
+     * @return the updated list.
+     */
+    WunderlistList unpublishList(long listId, long revision);
 
     /**
      * Update an existing list

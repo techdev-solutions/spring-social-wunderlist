@@ -21,9 +21,7 @@ import org.springframework.social.wunderlist.api.*;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Alexander Hanschke
@@ -76,17 +74,13 @@ class ListTemplate extends AbstractWunderlistOperations implements ListOperation
     }
 
     @Override
-    public WunderlistList publicizeList(long listId, boolean makePublic, long revision) {
-        requireAuthorization();
+    public WunderlistList publishList(long listId, long revision) {
+        return updateList(new UpdateListData(listId, revision).published(true));
+    }
 
-        Map<String, Object> params = new HashMap<String, Object>(2);
-        params.put("public", makePublic);
-        params.put("revision", revision);
-
-        HttpEntity request = new HttpEntity(params, headers());
-
-        HttpEntity<WunderlistList> response = restTemplate.exchange(buildUri("lists/" + listId), HttpMethod.PATCH, request, WunderlistList.class);
-        return response.getBody();
+    @Override
+    public WunderlistList unpublishList(long listId, long revision) {
+        return updateList(new UpdateListData(listId, revision).published(false));
     }
 
     @Override
