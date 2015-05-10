@@ -136,7 +136,7 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .assignTo(1000)
             .completed(false)
             .due(new SimpleDateFormat("yyyy-MM-dd").parse("2020-12-24"))
-            .every(new Recurrence(2, Recurrence.Type.WEEK))
+            .recurring(new Recurrence(2, Recurrence.Type.WEEK))
             .starred(true);
 
         WunderlistTask task = wunderlist.taskOperations().createTask(data);
@@ -164,7 +164,7 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.remove").doesNotExist())
             .andRespond(with(HttpStatus.CREATED, jsonResource("task"), APPLICATION_JSON));
 
-        CreateTaskData data = new CreateTaskData(666, "test task").every(Recurrence.DAILY);
+        CreateTaskData data = new CreateTaskData(666, "test task").recurring(Recurrence.DAILY);
 
         WunderlistTask task = wunderlist.taskOperations().createTask(data);
         assertNotNull(task);

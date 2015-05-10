@@ -56,7 +56,7 @@ public class UpdateTaskData {
         return this;
     }
 
-    public UpdateTaskData every(Recurrence recurrence) {
+    public UpdateTaskData recurring(Recurrence recurrence) {
         Assert.notNull(recurrence, "recurrence must not be null");
         this.recurrence = recurrence;
         return this;

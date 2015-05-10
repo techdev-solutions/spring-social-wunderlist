@@ -77,7 +77,7 @@ public class CreateTaskData {
      * @param recurrence the recurrence type and count for the task, i.e. 'every 2 weeks'.
      * @return this {@link CreateTaskData}.
      */
-    public CreateTaskData every(Recurrence recurrence) {
+    public CreateTaskData recurring(Recurrence recurrence) {
         Assert.notNull(recurrence, "task data must not be null");
         this.recurrence = recurrence;
         return this;

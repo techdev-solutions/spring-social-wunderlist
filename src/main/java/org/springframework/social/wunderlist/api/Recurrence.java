@@ -31,11 +31,13 @@ public class Recurrence {
     public static final Recurrence WEEKLY   = new Recurrence(1, Type.WEEK);
     public static final Recurrence BIWEEKLY = new Recurrence(2, Type.WEEK);
     public static final Recurrence MONTHLY  = new Recurrence(1, Type.MONTH);
+    public static final Recurrence YEARLY   = new Recurrence(1, Type.YEAR);
 
     /**
      * Represents the supported recurrence types.
      */
     public enum Type {
+
         DAY, WEEK, MONTH, YEAR;
 
         public String value() {

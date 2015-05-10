@@ -28,7 +28,7 @@ import java.net.URI;
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-class AbstractWunderlistOperations {
+abstract class AbstractWunderlistOperations {
 
     private final boolean authorized;
 
@@ -65,5 +65,5 @@ class AbstractWunderlistOperations {
 
     private static final String API_URL_BASE = "https://a.wunderlist.com/api/v1/";
 
-    private static final MultiValueMap<String, String> EMPTY_PARAMETERS = new LinkedMultiValueMap<String, String>();
+    private static final MultiValueMap<String, String> EMPTY_PARAMETERS = new LinkedMultiValueMap<String, String>(0);
 }
