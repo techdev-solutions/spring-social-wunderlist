@@ -24,6 +24,9 @@ import org.springframework.social.support.HttpRequestDecorator;
 import java.io.IOException;
 
 /**
+ * A {@link ClientHttpRequestInterceptor} to ensure that requests contain the authentication
+ * headers 'X-Client-ID' and 'X-Access-Token'.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */

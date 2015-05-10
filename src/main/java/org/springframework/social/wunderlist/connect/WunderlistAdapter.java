@@ -23,6 +23,8 @@ import org.springframework.social.wunderlist.api.WunderlistUser;
 import org.springframework.social.wunderlist.api.Wunderlist;
 
 /**
+ * Wunderlist ApiAdapter implementation.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */

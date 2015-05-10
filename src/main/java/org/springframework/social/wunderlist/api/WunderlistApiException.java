@@ -27,5 +27,4 @@ public abstract class WunderlistApiException extends ApiException {
         super("wunderlist", message);
     }
 
-
 }

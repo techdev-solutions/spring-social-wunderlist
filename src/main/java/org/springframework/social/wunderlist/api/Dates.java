@@ -31,7 +31,7 @@ public final class Dates {
      * Creates a new date based on a given date.
      *
      * @param date the date to copy.
-     * @return a new data or {@code null} if the given date was null.
+     * @return a new {@link Date} or {@code null} if the given date was {@code null}.
      */
     public static Date safeCopy(Date date) {
         return date == null ? null : new Date(date.getTime());

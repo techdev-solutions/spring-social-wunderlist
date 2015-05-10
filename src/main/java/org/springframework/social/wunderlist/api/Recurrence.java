@@ -19,11 +19,14 @@ import org.springframework.util.Assert;
 
 /**
  * Represents the recurrence of a task, i.e. 'every 2 weeks'.
- * There are pre-defined recurrences for {@link #DAILY}, {@link #WEEKLY}, {@link #BIWEEKLY}
- * and {@link #MONTHLY}.
  *
  * @author Alexander Hanschke
  * @since 1.0.0
+ * @see #DAILY
+ * @see #WEEKLY
+ * @see #BIWEEKLY
+ * @see #MONTHLY
+ * @see #YEARLY
  */
 public class Recurrence {
 

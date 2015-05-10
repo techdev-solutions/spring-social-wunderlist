@@ -18,56 +18,60 @@ package org.springframework.social.wunderlist.api;
 import java.util.List;
 
 /**
+ * Primary interface for list operations.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */
 public interface ListOperations {
 
     /**
-     * Get a specific list
+     * Get a specific list.
      *
-     * @param listId the id of the list to retrieve
-     * @return the list for the given id
+     * @param listId the id of the list to retrieve.
+     * @return the {@link WunderlistList} with the given id.
      */
     WunderlistList getList(long listId);
 
     /**
-     * Get all lists a user has permission to
+     * Get all lists a user has permission to.
      *
-     * @return all the lists accessible
+     * @return a list of {@link WunderlistList}s accessible by the current user.
      */
     List<WunderlistList> getLists();
 
     /**
-     * Get a list's tasks count
+     * Get a list's tasks count.
      *
-     * @param listId the id of the list to query
-     * @return the tasks count
+     * @param listId the id of the list to query.
+     * @return the {@link WunderlistTasksCount} for the given list.
      */
     WunderlistTasksCount getTasksCount(long listId);
 
     /**
-     * Create a list
+     * Create a list with a given title.
      *
-     * @param title the title of the new list
-     * @return the created list
+     * @param title the title of the new list.
+     * @return the created {@link WunderlistList}.
+     * @see #createList(CreateListData)
      */
     WunderlistList createList(String title);
 
     /**
-     * Create a list
+     * Create a list.
      *
-     * @param data the data for the new list
-     * @return the created list
+     * @param data the data of the list to be created.
+     * @return the created {@link WunderlistList}.
+     * @see #createList(String)
      */
     WunderlistList createList(CreateListData data);
 
     /**
-     * Delete a list permanently
+     * Delete a list permanently.
      *
-     * @param listId the id of the list to be deleted
+     * @param listId the id of the list to be deleted.
      * @param revision the revision of the list (note that this must match with the current
-     * revision of the list, otherwise a {@link ConflictException} may occur)
+     * revision of the list, otherwise a {@link ConflictException} may be thrown).
      */
     void deleteList(long listId, long revision);
 
@@ -76,8 +80,9 @@ public interface ListOperations {
      *
      * @param listId the id of the list to be made public.
      * @param revision the revision of the list (note that this must match with the current
-     * revision of the list, otherwise a {@link ConflictException} may occur).
-     * @return the updated list.
+     * revision of the list, otherwise a {@link ConflictException} may be thrown).
+     * @return the updated {@link WunderlistList}.
+     * @see #updateList(UpdateListData)
      */
     WunderlistList publishList(long listId, long revision);
 
@@ -86,16 +91,17 @@ public interface ListOperations {
      *
      * @param listId the id of the list to be made private.
      * @param revision the revision of the list (note that this must match with the current
-     * revision of the list, otherwise a {@link ConflictException} may occur).
-     * @return the updated list.
+     * revision of the list, otherwise a {@link ConflictException} may be thrown).
+     * @return the updated {@link WunderlistList}
+     * @see #updateList(UpdateListData)
      */
     WunderlistList unpublishList(long listId, long revision);
 
     /**
-     * Update an existing list
+     * Update an existing list.
      *
-     * @param data the changed list data
-     * @return the updated list
+     * @param data the changed list data.
+     * @return the updated {@link WunderlistList}.
      */
     WunderlistList updateList(UpdateListData data);
 

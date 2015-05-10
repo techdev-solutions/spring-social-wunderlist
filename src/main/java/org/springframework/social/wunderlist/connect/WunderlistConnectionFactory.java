@@ -19,6 +19,8 @@ import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.wunderlist.api.Wunderlist;
 
 /**
+ * Wunderlist OAuth2ConnectionFactory implementation.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */

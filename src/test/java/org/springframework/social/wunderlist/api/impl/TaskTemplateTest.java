@@ -81,7 +81,7 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(authHeaders())
             .andRespond(withSuccess(jsonResource("tasks-all"), APPLICATION_JSON));
 
-        List<WunderlistTask> tasks = wunderlist.taskOperations().getCompletedTasks(666, true);
+        List<WunderlistTask> tasks = wunderlist.taskOperations().getCompletedTasks(666);
         assertEquals(2, tasks.size());
     }
 
@@ -93,7 +93,7 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(authHeaders())
             .andRespond(withSuccess(jsonResource("tasks-all"), APPLICATION_JSON));
 
-        List<WunderlistTask> tasks = wunderlist.taskOperations().getCompletedTasks(666, false);
+        List<WunderlistTask> tasks = wunderlist.taskOperations().getUncompletedTasks(666);
         assertEquals(2, tasks.size());
     }
 

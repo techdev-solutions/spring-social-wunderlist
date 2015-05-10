@@ -18,122 +18,133 @@ package org.springframework.social.wunderlist.api;
 import java.util.List;
 
 /**
+ * Primary interface for task operations.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */
 public interface TaskOperations {
 
     /**
-     * Get a specific task
+     * Get a specific task.
      *
-     * @param taskId the id of the task to retrieve
-     * @return the task for the given id
+     * @param taskId the id of the task to retrieve.
+     * @return the {@link WunderlistTask} with the given id.
      */
     WunderlistTask getTask(long taskId);
 
     /**
-     * Get tasks for a list
+     * Get tasks for a list.
      *
-     * @param listId the id of the list for which the tasks shall be fetched
-     * @return all the tasks belonging the corresponding list
+     * @param listId the id of the list for which the tasks shall be fetched.
+     * @return a list of {@link WunderlistTask}s belonging to the given list.
      */
     List<WunderlistTask> getTasks(long listId);
 
     /**
-     * Get completed tasks for a list
+     * Get completed tasks for a list.
      *
-     * @param listId the id of the list for which the tasks shall be fetched
-     * @param completed whether to fetch completed tasks or uncompleted ones
-     * @return all the tasks matching the given criteria
+     * @param listId the id of the list for which the tasks shall be fetched.
+     * @return a list of completed {@link WunderlistTask}s.
      */
-    List<WunderlistTask> getCompletedTasks(long listId, boolean completed);
+    List<WunderlistTask> getCompletedTasks(long listId);
 
     /**
-     * Delete a task
+     * Get uncompleted tasks for a list.
      *
-     * @param taskId the id of the task to be deleted
+     * @param listId the id of the list for which the tasks shall be fetched.
+     * @return a list of uncompleted {@link WunderlistTask}s.
+     */
+    List<WunderlistTask> getUncompletedTasks(long listId);
+
+    /**
+     * Delete a task permanently.
+     *
+     * @param taskId the id of the task to be deleted.
      * @param revision the revision of the task (note that this must match with the current
-     * revision of the task, otherwise a {@link ConflictException} may occur)
+     * revision of the task, otherwise a {@link ConflictException} may be thrown).
      */
     void deleteTask(long taskId, long revision);
 
     /**
-     * Create a task
+     * Create a task.
      *
-     * @param data the data of the task to be created
-     * @return the created task
+     * @param data the data of the task to be created.
+     * @return the created {@link WunderlistTask}.
      */
     WunderlistTask createTask(CreateTaskData data);
 
     /**
-     * Update an existing task
+     * Update an existing task.
      *
-     * @param data the changed task data
-     * @return the updated task
+     * @param data the changed task data.
+     * @return the updated {@link WunderlistTask}.
      */
     WunderlistTask updateTask(UpdateTaskData data);
 
     /**
-     * Mark an existing task as starred
+     * Mark an existing task as starred.
      *
-     * @param taskId the id of the task to be marked as starred
+     * @param taskId the id of the task to be marked as starred.
      * @param revision the revision of the task (note that this must match with the current
-     * revision of the task, otherwise a {@link ConflictException} may occur)
-     * @return the updated task
+     * revision of the task, otherwise a {@link ConflictException} may be thrown).
+     * @return the updated {@link WunderlistTask}.
      * @see #updateTask(UpdateTaskData)
      */
     WunderlistTask starTask(long taskId, long revision);
 
     /**
-     * Mark an existing task as not starred
+     * Mark an existing task as not starred.
      *
-     * @param taskId the id of the task to be marked as not starred
+     * @param taskId the id of the task to be marked as not starred.
      * @param revision the revision of the task (note that this must match with the current
-     * revision of the task, otherwise a {@link ConflictException} may occur)
-     * @return the updated task
+     * revision of the task, otherwise a {@link ConflictException} may be thrown).
+     * @return the updated {@link WunderlistTask}.
      * @see #updateTask(UpdateTaskData)
      */
     WunderlistTask unstarTask(long taskId, long revision);
 
     /**
-     * Mark an existing task as complete
+     * Mark an existing task as complete.
      *
-     * @param taskId the id of the task to be marked as complete
+     * @param taskId the id of the task to be marked as complete.
      * @param revision the revision of the task (note that this must match with the current
-     * revision of the task, otherwise a {@link ConflictException} may occur)
-     * @return the updated task
+     * revision of the task, otherwise a {@link ConflictException} may be thrown).
+     * @return the updated {@link WunderlistTask}.
      * @see #updateTask(UpdateTaskData)
      */
     WunderlistTask completeTask(long taskId, long revision);
 
     /**
-     * Mark an existing task as incomplete
+     * Mark an existing task as incomplete.
      *
-     * @param taskId the id of the task to be marked as incomplete
+     * @param taskId the id of the task to be marked as incomplete.
      * @param revision the revision of the task (note that this must match with the current
-     * revision of the task, otherwise a {@link ConflictException} may occur)
-     * @return the updated task
+     * revision of the task, otherwise a {@link ConflictException} may be thrown).
+     * @return the updated {@link WunderlistTask}.
      * @see #updateTask(UpdateTaskData)
      */
     WunderlistTask uncompleteTask(long taskId, long revision);
 
     /**
-     * Remove the assignee from an existing task
+     * Remove the assignee from an existing task.
      *
-     * @param taskId the id of the task to be changed
+     * @param taskId the id of the task to be changed.
      * @param revision the revision of the task (note that this must match with the current
-     * revision of the task, otherwise a {@link ConflictException} may occur)
-     * @return the updated task
+     * revision of the task, otherwise a {@link ConflictException} may be thrown).
+     * @return the updated {@link WunderlistTask}.
+     * @see #updateTask(UpdateTaskData)
      */
     WunderlistTask removeAssignee(long taskId, long revision);
 
     /**
-     * Remove the due date from an existing task
+     * Remove the due date from an existing task.
      *
-     * @param taskId the id of the task to be changed
+     * @param taskId the id of the task to be changed.
      * @param revision the revision of the task (note that this must match with the current
-     * revision of the task, otherwise a {@link ConflictException} may occur)
-     * @return the updated task
+     * revision of the task, otherwise a {@link ConflictException} may be thrown).
+     * @return the updated {@link WunderlistTask}.
+     * @see #updateTask(UpdateTaskData)
      */
     WunderlistTask removeDueDate(long taskId, long revision);
 

@@ -21,6 +21,8 @@ import org.springframework.social.wunderlist.api.Wunderlist;
 import org.springframework.social.wunderlist.api.impl.WunderlistTemplate;
 
 /**
+ * Wunderlist ServiceProvider implementation.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */

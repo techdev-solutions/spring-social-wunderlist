@@ -18,6 +18,8 @@ package org.springframework.social.wunderlist.connect.support;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
+ * Represents an access token request as part of the OAuth2 dance.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */
@@ -34,18 +36,6 @@ public class AccessTokenRequest {
         this.id = id;
         this.code = code;
         this.secret = secret;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getSecret() {
-        return secret;
-    }
-
-    public String getCode() {
-        return code;
     }
 
 }

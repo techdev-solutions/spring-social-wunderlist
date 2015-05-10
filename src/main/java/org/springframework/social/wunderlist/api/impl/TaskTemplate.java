@@ -57,7 +57,16 @@ class TaskTemplate extends AbstractWunderlistOperations implements TaskOperation
     }
 
     @Override
-    public List<WunderlistTask> getCompletedTasks(long listId, boolean completed) {
+    public List<WunderlistTask> getCompletedTasks(long listId) {
+        return getCompletedTasks(listId, true);
+    }
+
+    @Override
+    public List<WunderlistTask> getUncompletedTasks(long listId) {
+        return getCompletedTasks(listId, false);
+    }
+
+    private List<WunderlistTask> getCompletedTasks(long listId, boolean completed) {
         requireAuthorization();
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>(2);
         params.set("list_id", String.valueOf(listId));

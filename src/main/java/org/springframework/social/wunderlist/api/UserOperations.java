@@ -18,32 +18,34 @@ package org.springframework.social.wunderlist.api;
 import java.util.List;
 
 /**
+ * Primary interface for user operations.
+ *
  * @author Alexander Hanschke
  * @since 1.0.0
  */
 public interface UserOperations {
 
     /**
-     * Retrieve the currently authenticated user
+     * Retrieve the currently authenticated user.
      *
-     * @return the currently authenticated user
+     * @return the currently authenticated {@link WunderlistUser}.
      */
     WunderlistUser getUser();
 
     /**
      * Retrieve all users the currently authenticated user can access,
-     * across all lists
+     * across all lists.
      *
-     * @return all accessible users
+     * @return a list of {@link WunderlistUser}s accessible by the current user
      */
     List<WunderlistUser> getAccessibleUsers();
 
     /**
      * Retrieve all users the currently authenticated user can access,
-     * restricted to the given list id
+     * restricted to the given list.
      *
-     * @param listId the id of the list to retrieve the users for
-     * @return all accessible users
+     * @param listId the id of the list to retrieve the users for.
+     * @return a list of {@link WunderlistUser}s accessibly by the current user
      */
     List<WunderlistUser> getAccessibleUsersForList(long listId);
 }
