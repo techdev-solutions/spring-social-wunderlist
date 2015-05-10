@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.connect.support;
+package org.springframework.social.wunderlist.api.impl;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -30,7 +30,7 @@ import java.io.IOException;
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-public class WunderlistTokenRequestInterceptor implements ClientHttpRequestInterceptor {
+class WunderlistTokenRequestInterceptor implements ClientHttpRequestInterceptor {
 
     private final String clientId;
     private final String accessToken;

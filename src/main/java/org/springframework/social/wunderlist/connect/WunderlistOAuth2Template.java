@@ -18,7 +18,6 @@ package org.springframework.social.wunderlist.connect;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Template;
-import org.springframework.social.wunderlist.connect.support.AccessTokenRequest;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 

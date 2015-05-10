@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wunderlist.connect.support;
+package org.springframework.social.wunderlist.connect;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Alexander Hanschke
  * @since 1.0.0
  */
-public class AccessTokenRequest {
+class AccessTokenRequest {
 
     @JsonProperty("client_id")
     private String id;
@@ -36,6 +36,18 @@ public class AccessTokenRequest {
         this.id = id;
         this.code = code;
         this.secret = secret;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public String getCode() {
+        return code;
     }
 
 }

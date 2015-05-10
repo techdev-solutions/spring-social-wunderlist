@@ -26,7 +26,6 @@ import org.springframework.social.wunderlist.api.UserOperations;
 import org.springframework.social.wunderlist.api.Wunderlist;
 import org.springframework.social.wunderlist.api.impl.handler.DelegatingErrorHandler;
 import org.springframework.social.wunderlist.api.impl.json.WunderlistModule;
-import org.springframework.social.wunderlist.connect.support.WunderlistTokenRequestInterceptor;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
