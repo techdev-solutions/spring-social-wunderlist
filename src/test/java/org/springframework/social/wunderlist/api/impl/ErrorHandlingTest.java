@@ -39,9 +39,8 @@ public class ErrorHandlingTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/user"))
             .andExpect(method(GET))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
-            .andRespond(with(HttpStatus.NOT_FOUND, jsonResource("permission-error"), APPLICATION_JSON));
+            .andExpect(authHeaders())
+            .andRespond(withStatus(HttpStatus.NOT_FOUND, jsonResource("permission-error"), APPLICATION_JSON));
 
         wunderlist.userOperations().getUser();
     }
@@ -51,9 +50,8 @@ public class ErrorHandlingTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/user"))
             .andExpect(method(GET))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
-            .andRespond(with(HttpStatus.INTERNAL_SERVER_ERROR, jsonResource("internal-server-error"), APPLICATION_JSON));
+            .andExpect(authHeaders())
+            .andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR, jsonResource("internal-server-error"), APPLICATION_JSON));
 
         wunderlist.userOperations().getUser();
     }
@@ -63,7 +61,7 @@ public class ErrorHandlingTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/user"))
             .andExpect(method(GET))
-            .andRespond(with(HttpStatus.FORBIDDEN, jsonResource("error-authentication-missing"), APPLICATION_JSON));
+            .andRespond(withStatus(HttpStatus.FORBIDDEN, jsonResource("error-authentication-missing"), APPLICATION_JSON));
 
         wunderlist.userOperations().getUser();
     }
@@ -73,9 +71,8 @@ public class ErrorHandlingTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/user"))
             .andExpect(method(GET))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
-            .andRespond(with(HttpStatus.UNAUTHORIZED, jsonResource("unauthorized"), APPLICATION_JSON));
+            .andExpect(authHeaders())
+            .andRespond(withStatus(HttpStatus.UNAUTHORIZED, jsonResource("unauthorized"), APPLICATION_JSON));
 
         wunderlist.userOperations().getUser();
     }
@@ -85,9 +82,8 @@ public class ErrorHandlingTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/user"))
             .andExpect(method(GET))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
-            .andRespond(with(HttpStatus.BAD_REQUEST, jsonResource("error-missing-parameter"), APPLICATION_JSON));
+            .andExpect(authHeaders())
+            .andRespond(withStatus(HttpStatus.BAD_REQUEST, jsonResource("error-missing-parameter"), APPLICATION_JSON));
 
         wunderlist.userOperations().getUser();
     }
@@ -97,9 +93,8 @@ public class ErrorHandlingTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/user"))
             .andExpect(method(GET))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
-            .andRespond(with(HttpStatus.NOT_FOUND, jsonResource("not-found"), APPLICATION_JSON));
+            .andExpect(authHeaders())
+            .andRespond(withStatus(HttpStatus.NOT_FOUND, jsonResource("not-found"), APPLICATION_JSON));
 
         wunderlist.userOperations().getUser();
     }
@@ -109,9 +104,8 @@ public class ErrorHandlingTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/user"))
             .andExpect(method(GET))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
-            .andRespond(with(HttpStatus.CONFLICT, jsonResource("conflict"), APPLICATION_JSON));
+            .andExpect(authHeaders())
+            .andRespond(withStatus(HttpStatus.CONFLICT, jsonResource("conflict"), APPLICATION_JSON));
 
         wunderlist.userOperations().getUser();
     }

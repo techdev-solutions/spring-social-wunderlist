@@ -41,8 +41,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists/666"))
             .andExpect(method(GET))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(authHeaders())
             .andRespond(withSuccess(jsonResource("list"), APPLICATION_JSON));
 
         WunderlistList list = wunderlist.listOperations().getList(666);
@@ -61,8 +60,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
             .andExpect(method(GET))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(authHeaders())
             .andRespond(withSuccess(jsonResource("lists-all"), APPLICATION_JSON));
 
         List<WunderlistList> lists = wunderlist.listOperations().getLists();
@@ -74,8 +72,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists/tasks_count?list_id=666"))
             .andExpect(method(GET))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(authHeaders())
             .andRespond(withSuccess(jsonResource("tasks-count"), APPLICATION_JSON));
 
         WunderlistTasksCount count = wunderlist.listOperations().getTasksCount(666);
@@ -92,11 +89,10 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
             .andExpect(method(POST))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(authHeaders())
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.title", is("a test list")))
-            .andRespond(with(HttpStatus.CREATED, jsonResource("list-created"), APPLICATION_JSON));
+            .andRespond(withStatus(HttpStatus.CREATED, jsonResource("list-created"), APPLICATION_JSON));
 
         WunderlistList list = wunderlist.listOperations().createList("a test list");
         assertNotNull(list);
@@ -107,11 +103,10 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
             .andExpect(method(POST))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(authHeaders())
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.title", is("a test list")))
-            .andRespond(with(HttpStatus.CREATED, jsonResource("list-created"), APPLICATION_JSON));
+            .andRespond(withStatus(HttpStatus.CREATED, jsonResource("list-created"), APPLICATION_JSON));
 
         CreateListData data = new CreateListData("a test list");
         WunderlistList list = wunderlist.listOperations().createList(data);
@@ -123,11 +118,10 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
             .andExpect(method(POST))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(authHeaders())
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.title", is("")))
-            .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-empty"), APPLICATION_JSON));
+            .andRespond(withStatus(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-empty"), APPLICATION_JSON));
 
         CreateListData data = new CreateListData("");
         wunderlist.listOperations().createList(data);
@@ -140,11 +134,10 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists"))
             .andExpect(method(POST))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(authHeaders())
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.title", is(title)))
-            .andRespond(with(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-too-long"), APPLICATION_JSON));
+            .andRespond(withStatus(HttpStatus.UNPROCESSABLE_ENTITY, jsonResource("error-list-title-too-long"), APPLICATION_JSON));
 
         CreateListData data = new CreateListData(title);
         wunderlist.listOperations().createList(data);
@@ -155,8 +148,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists/666?revision=10"))
             .andExpect(method(DELETE))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(authHeaders())
             .andRespond(withNoContent());
 
         wunderlist.listOperations().deleteList(666, 10);
@@ -167,8 +159,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists/666"))
             .andExpect(method(PATCH))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(authHeaders())
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.revision", is(10)))
             .andExpect(jsonPath("$.public", is(true)))
@@ -183,8 +174,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         server
             .expect(requestTo("https://a.wunderlist.com/api/v1/lists/666"))
             .andExpect(method(PATCH))
-            .andExpect(header("X-Client-ID", "CLIENT_ID"))
-            .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+            .andExpect(authHeaders())
             .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
             .andExpect(jsonPath("$.revision", is(10)))
             .andExpect(jsonPath("$.title", is("a fresh new title")))

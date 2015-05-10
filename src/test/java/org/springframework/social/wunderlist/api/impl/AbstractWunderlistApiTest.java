@@ -20,9 +20,14 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.test.web.client.RequestMatcher;
+import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.DefaultResponseCreator;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
+
+import java.io.IOException;
 
 /**
  * @author Alexander Hanschke
@@ -42,7 +47,28 @@ public abstract class AbstractWunderlistApiTest {
         return new ClassPathResource(filename + ".json", getClass());
     }
 
-    protected static DefaultResponseCreator with(HttpStatus status, Resource body, MediaType contentType) {
+    protected RequestMatcher authHeaders() {
+        return new RequestMatcher() {
+            @Override
+            public void match(ClientHttpRequest request) throws IOException, AssertionError {
+                MockRestRequestMatchers.header("X-Client-ID", "CLIENT_ID").match(request);
+                MockRestRequestMatchers.header("X-Access-Token", "ACCESS_TOKEN").match(request);
+            }
+        };
+    }
+
+    protected RequestMatcher absenceOf(final String... expressions) {
+        return new RequestMatcher() {
+            @Override
+            public void match(ClientHttpRequest request) throws IOException, AssertionError {
+                for (String expression : expressions) {
+                    MockRestRequestMatchers.jsonPath(expression).doesNotExist().match(request);
+                }
+            }
+        };
+    }
+
+    protected DefaultResponseCreator withStatus(HttpStatus status, Resource body, MediaType contentType) {
         return MockRestResponseCreators.withStatus(status).body(body).contentType(contentType);
     }
 
