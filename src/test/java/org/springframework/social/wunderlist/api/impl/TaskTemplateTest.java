@@ -126,7 +126,7 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andExpect(jsonPath("$.assignee_id", is(1000)))
             .andExpect(jsonPath("$.completed", is(false)))
             .andExpect(jsonPath("$.recurrence_type", is("week")))
-            .andExpect(jsonPath("$.recurrence_count", is(2)))
+            .andExpect(jsonPath("$.recurrence_count", is(3)))
             .andExpect(jsonPath("$.due_date", is("2020-12-24")))
             .andExpect(jsonPath("$.starred", is(true)))
             .andExpect(jsonPath("$.remove").doesNotExist())
@@ -136,7 +136,7 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .assignTo(1000)
             .completed(false)
             .due(new SimpleDateFormat("yyyy-MM-dd").parse("2020-12-24"))
-            .recurring(new Recurrence(2, Recurrence.Type.WEEK))
+            .recurring(new Recurrence(3, Recurrence.Type.WEEK))
             .starred(true);
 
         WunderlistTask task = wunderlist.taskOperations().createTask(data);
@@ -165,6 +165,114 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
             .andRespond(with(HttpStatus.CREATED, jsonResource("task"), APPLICATION_JSON));
 
         CreateTaskData data = new CreateTaskData(666, "test task").recurring(Recurrence.DAILY);
+
+        WunderlistTask task = wunderlist.taskOperations().createTask(data);
+        assertNotNull(task);
+    }
+
+    @Test
+    public void shouldCreateWeeklyTask() {
+        server
+                .expect(requestTo("https://a.wunderlist.com/api/v1/tasks"))
+                .andExpect(method(POST))
+                .andExpect(header("X-Client-ID", "CLIENT_ID"))
+                .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+                .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$.list_id", is(666)))
+                .andExpect(jsonPath("$.title", is("test task")))
+                .andExpect(jsonPath("$.recurrence_type", is("week")))
+                .andExpect(jsonPath("$.recurrence_count", is(1)))
+                .andExpect(jsonPath("$.completed", is(false)))
+                .andExpect(jsonPath("$.starred", is(false)))
+                .andExpect(jsonPath("$.assignee_id").doesNotExist())
+                .andExpect(jsonPath("$.due_date").doesNotExist())
+                .andExpect(jsonPath("$.remove").doesNotExist())
+                .andExpect(jsonPath("$.assignee_id").doesNotExist())
+                .andExpect(jsonPath("$.remove").doesNotExist())
+                .andRespond(with(HttpStatus.CREATED, jsonResource("task"), APPLICATION_JSON));
+
+        CreateTaskData data = new CreateTaskData(666, "test task").recurring(Recurrence.WEEKLY);
+
+        WunderlistTask task = wunderlist.taskOperations().createTask(data);
+        assertNotNull(task);
+    }
+
+    @Test
+    public void shouldCreateBiweeklyTask() {
+        server
+                .expect(requestTo("https://a.wunderlist.com/api/v1/tasks"))
+                .andExpect(method(POST))
+                .andExpect(header("X-Client-ID", "CLIENT_ID"))
+                .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+                .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$.list_id", is(666)))
+                .andExpect(jsonPath("$.title", is("test task")))
+                .andExpect(jsonPath("$.recurrence_type", is("week")))
+                .andExpect(jsonPath("$.recurrence_count", is(2)))
+                .andExpect(jsonPath("$.completed", is(false)))
+                .andExpect(jsonPath("$.starred", is(false)))
+                .andExpect(jsonPath("$.assignee_id").doesNotExist())
+                .andExpect(jsonPath("$.due_date").doesNotExist())
+                .andExpect(jsonPath("$.remove").doesNotExist())
+                .andExpect(jsonPath("$.assignee_id").doesNotExist())
+                .andExpect(jsonPath("$.remove").doesNotExist())
+                .andRespond(with(HttpStatus.CREATED, jsonResource("task"), APPLICATION_JSON));
+
+        CreateTaskData data = new CreateTaskData(666, "test task").recurring(Recurrence.BIWEEKLY);
+
+        WunderlistTask task = wunderlist.taskOperations().createTask(data);
+        assertNotNull(task);
+    }
+
+    @Test
+    public void shouldCreateMonthlyTask() {
+        server
+                .expect(requestTo("https://a.wunderlist.com/api/v1/tasks"))
+                .andExpect(method(POST))
+                .andExpect(header("X-Client-ID", "CLIENT_ID"))
+                .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+                .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$.list_id", is(666)))
+                .andExpect(jsonPath("$.title", is("test task")))
+                .andExpect(jsonPath("$.recurrence_type", is("month")))
+                .andExpect(jsonPath("$.recurrence_count", is(1)))
+                .andExpect(jsonPath("$.completed", is(false)))
+                .andExpect(jsonPath("$.starred", is(false)))
+                .andExpect(jsonPath("$.assignee_id").doesNotExist())
+                .andExpect(jsonPath("$.due_date").doesNotExist())
+                .andExpect(jsonPath("$.remove").doesNotExist())
+                .andExpect(jsonPath("$.assignee_id").doesNotExist())
+                .andExpect(jsonPath("$.remove").doesNotExist())
+                .andRespond(with(HttpStatus.CREATED, jsonResource("task"), APPLICATION_JSON));
+
+        CreateTaskData data = new CreateTaskData(666, "test task").recurring(Recurrence.MONTHLY);
+
+        WunderlistTask task = wunderlist.taskOperations().createTask(data);
+        assertNotNull(task);
+    }
+
+    @Test
+    public void shouldCreateYearlyTask() {
+        server
+                .expect(requestTo("https://a.wunderlist.com/api/v1/tasks"))
+                .andExpect(method(POST))
+                .andExpect(header("X-Client-ID", "CLIENT_ID"))
+                .andExpect(header("X-Access-Token", "ACCESS_TOKEN"))
+                .andExpect(header("Content-Type", "application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$.list_id", is(666)))
+                .andExpect(jsonPath("$.title", is("test task")))
+                .andExpect(jsonPath("$.recurrence_type", is("year")))
+                .andExpect(jsonPath("$.recurrence_count", is(1)))
+                .andExpect(jsonPath("$.completed", is(false)))
+                .andExpect(jsonPath("$.starred", is(false)))
+                .andExpect(jsonPath("$.assignee_id").doesNotExist())
+                .andExpect(jsonPath("$.due_date").doesNotExist())
+                .andExpect(jsonPath("$.remove").doesNotExist())
+                .andExpect(jsonPath("$.assignee_id").doesNotExist())
+                .andExpect(jsonPath("$.remove").doesNotExist())
+                .andRespond(with(HttpStatus.CREATED, jsonResource("task"), APPLICATION_JSON));
+
+        CreateTaskData data = new CreateTaskData(666, "test task").recurring(Recurrence.YEARLY);
 
         WunderlistTask task = wunderlist.taskOperations().createTask(data);
         assertNotNull(task);
