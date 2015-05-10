@@ -50,6 +50,13 @@ artifacts {
     archives javadocJar
 }
 
+test {
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.4'
 }
