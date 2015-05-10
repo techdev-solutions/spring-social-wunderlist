@@ -18,9 +18,7 @@ package org.springframework.social.wunderlist.api.impl;
 import org.junit.Test;
 import org.springframework.social.wunderlist.api.WunderlistUser;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -50,7 +48,7 @@ public class UserTemplateTest extends AbstractWunderlistApiTest {
         assertEquals("benchmark@example.com", user.getEmail());
         assertEquals(Long.valueOf(6234958), user.getId());
         assertEquals(Long.valueOf(1), user.getRevision());
-        assertEquals(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.GERMAN).parse("2013-08-30 10:25:58"), user.getCreatedAt());
+        assertEquals(utcDateFormat().parse("2013-08-30 08:25:58"), user.getCreatedAt());
     }
 
     @Test

@@ -24,7 +24,6 @@ import org.springframework.social.wunderlist.api.WunderlistTask;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -58,8 +57,8 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
         assertEquals(Long.valueOf(5432), task.getAssignerId());
         assertEquals(Long.valueOf(12345), task.getAssigneeId());
         assertEquals(Long.valueOf(6234958), task.getCreatedById());
-        assertEquals(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.GERMAN).parse("2013-08-30 02:00:00"), task.getDueDate());
-        assertEquals(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.GERMAN).parse("2013-08-30 10:36:13"), task.getCreatedAt());
+        assertEquals(utcDateFormat().parse("2013-08-30 00:00:00"), task.getDueDate());
+        assertEquals(utcDateFormat().parse("2013-08-30 08:36:13"), task.getCreatedAt());
     }
 
     @Test
@@ -130,7 +129,7 @@ public class TaskTemplateTest extends AbstractWunderlistApiTest {
         CreateTaskData data = new CreateTaskData(666, "test task")
             .assignTo(1000)
             .completed(false)
-            .due(new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN).parse("2020-12-24"))
+            .due(new SimpleDateFormat("yyyy-MM-dd").parse("2020-12-24"))
             .recurring(new Recurrence(3, Recurrence.Type.WEEK))
             .starred(true);
 

@@ -19,9 +19,7 @@ import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.social.wunderlist.api.*;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
@@ -53,7 +51,7 @@ public class ListTemplateTest extends AbstractWunderlistApiTest {
         assertEquals("list", list.getListType());
         assertEquals("list", list.getType());
         assertEquals(Long.valueOf(10), list.getRevision());
-        assertEquals(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.GERMAN).parse("2013-08-30 10:29:46"), list.getCreatedAt());
+        assertEquals(utcDateFormat().parse("2013-08-30 08:29:46"), list.getCreatedAt());
     }
 
     @Test

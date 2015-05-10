@@ -28,6 +28,9 @@ import org.springframework.test.web.client.response.DefaultResponseCreator;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 /**
  * @author Alexander Hanschke
@@ -70,6 +73,13 @@ public abstract class AbstractWunderlistApiTest {
 
     protected DefaultResponseCreator withStatus(HttpStatus status, Resource body, MediaType contentType) {
         return MockRestResponseCreators.withStatus(status).body(body).contentType(contentType);
+    }
+
+    protected DateFormat utcDateFormat() {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        return format;
     }
 
 }
