@@ -1,3 +1,6 @@
+Spring Social Wunderlist
+========================
+
 [Wunderlist](wunderlist.com) API bindings and connect support for [Spring Social](http://projects.spring.io/spring-social/).
 
 Go to the wiki to see the current [API coverage](https://github.com/techdev-solutions/spring-social-wunderlist/wiki/API-Coverage).
